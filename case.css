@@ -1,0 +1,436 @@
+/* =========================================================================
+   Ellis Victoria — Case Study pages (v2 dark / motion)
+   Shared styles for all v2/work-*.html detail pages
+   ========================================================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0a0a0a;
+  --white: #f5f5f0;
+  --cyan: #00ffb3;
+  --blue: #2440ee;
+  --mid: #141414;
+  --muted: #8a8a82;
+  --border: rgba(245,245,240,0.1);
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'General Sans', sans-serif;
+  --radius: 10px;
+}
+
+html { scroll-behavior: auto; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  cursor: none;
+}
+
+@media (pointer: coarse) {
+  body { cursor: auto; }
+  .cursor, .cursor-dot { display: none !important; }
+}
+
+::selection { background: var(--cyan); color: var(--black); }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+
+.skip-link {
+  position: absolute;
+  left: 1rem; top: -4rem;
+  z-index: 9999;
+  background: var(--cyan);
+  color: var(--black);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.8rem;
+  border-radius: var(--radius);
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .fade-up, .cs-title-line span { opacity: 1 !important; transform: none !important; }
+  .loader { display: none !important; }
+}
+
+/* ── CANVAS / GRAIN / CURSOR ───────────────────────────────────────── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.page { position: relative; z-index: 1; }
+
+.grain {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.cursor {
+  position: fixed; top: 0; left: 0;
+  width: 14px; height: 14px;
+  border: 1px solid var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform;
+  transition: width 0.25s, height 0.25s, background 0.25s;
+}
+.cursor.hovering {
+  width: 56px; height: 56px;
+  background: rgba(0,255,179,0.1);
+}
+.cursor-dot {
+  position: fixed; top: 0; left: 0;
+  width: 4px; height: 4px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* ── PROGRESS BAR ──────────────────────────────────────────────────── */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--cyan);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 200;
+}
+
+/* ── LOADER ────────────────────────────────────────────────────────── */
+.loader {
+  position: fixed; inset: 0;
+  background: var(--black);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loader-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 500;
+}
+
+/* ── NAV ───────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  pointer-events: none;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(10,10,10,0.7);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--border);
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+}
+.nav::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 130px;
+  background: linear-gradient(to bottom, rgba(10,10,10,0.75), transparent);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+.nav.scrolled::before { opacity: 0; }
+.nav > * { pointer-events: auto; }
+.nav-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.nav-back {
+  font-size: 0.8rem;
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: gap 0.3s;
+}
+.nav-back:hover { gap: 0.85rem; }
+
+/* ── HERO ──────────────────────────────────────────────────────────── */
+.cs-hero {
+  min-height: 90vh;
+  min-height: 90dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 3rem 4rem;
+}
+.cs-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 2rem;
+}
+.cs-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 9vw, 8rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.cs-title-line { display: block; overflow: hidden; }
+.cs-title-line span { display: inline-block; transform: translateY(110%); }
+.cs-title .outline { color: transparent; -webkit-text-stroke: 1.5px var(--white); }
+.cs-subtitle {
+  margin-top: 2.5rem;
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 50ch;
+  line-height: 1.7;
+}
+
+/* ── META BAR ──────────────────────────────────────────────────────── */
+.cs-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.cs-meta-cell {
+  background: rgba(10,10,10,0.7);
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+}
+.cs-meta-key {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.6rem;
+}
+.cs-meta-val {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* ── BIG VISUAL ────────────────────────────────────────────────────── */
+.cs-visual {
+  margin: 6rem 3rem;
+  height: 70vh;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.cs-visual img,
+.cs-visual-placeholder {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* ── SECTIONS ──────────────────────────────────────────────────────── */
+.cs-section { padding: 6rem 3rem; }
+.cs-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1.5rem;
+}
+.cs-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.05;
+  margin-bottom: 2.5rem;
+}
+.cs-heading em { font-style: normal; color: var(--cyan); }
+.cs-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+.cs-prose p {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: rgba(245,245,240,0.78);
+  margin-bottom: 1.25rem;
+  max-width: 60ch;
+}
+.cs-prose p:last-child { margin-bottom: 0; }
+.cs-prose strong { color: var(--white); font-weight: 600; }
+.cs-prose em { font-style: normal; color: var(--cyan); }
+
+/* ── FEATURE GRID (cards) ──────────────────────────────────────────── */
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 3rem;
+}
+.cs-grid-item {
+  background: var(--black);
+  padding: 2.5rem;
+}
+.cs-grid-num {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--cyan);
+  margin-bottom: 1.25rem;
+}
+.cs-grid-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+.cs-grid-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ── OUTCOMES ──────────────────────────────────────────────────────── */
+.cs-outcomes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 3rem;
+}
+.cs-outcome {
+  background: var(--black);
+  padding: 2.5rem 2rem;
+}
+.cs-outcome-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+.cs-outcome-label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── TAGS ──────────────────────────────────────────────────────────── */
+.cs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 3rem;
+}
+.cs-tag {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--muted);
+}
+
+/* ── NEXT PROJECT ──────────────────────────────────────────────────── */
+.cs-next {
+  padding: 8rem 3rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.cs-next-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.cs-next-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  transition: color 0.3s;
+}
+.cs-next-link:hover .cs-next-title { color: var(--cyan); }
+.cs-next-arrow {
+  display: inline-flex;
+  margin-top: 2rem;
+  width: 64px; height: 64px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  transition: background 0.3s, color 0.3s;
+}
+.cs-next-link:hover .cs-next-arrow {
+  background: var(--cyan);
+  color: var(--black);
+}
+
+/* ── FOOTER ────────────────────────────────────────────────────────── */
+.footer {
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+/* ── FADE UP ───────────────────────────────────────────────────────── */
+.fade-up { opacity: 0; transform: translateY(40px); }
+
+/* ── RESPONSIVE ────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .nav { padding: 1.5rem 1.5rem; }
+  .cs-hero { padding: 7rem 1.5rem 3rem; }
+  .cs-meta { grid-template-columns: repeat(2, 1fr); }
+  .cs-visual { margin: 4rem 1.5rem; height: 50vh; }
+  .cs-section { padding: 4rem 1.5rem; }
+  .cs-two-col { grid-template-columns: 1fr; gap: 2rem; }
+  .cs-grid { grid-template-columns: 1fr; }
+  .cs-outcomes { grid-template-columns: repeat(2, 1fr); }
+  .cs-next { padding: 5rem 1.5rem; }
+  .footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+}
+
+@media (max-width: 600px) {
+  .cs-title { font-size: clamp(2.2rem, 12vw, 4rem); }
+  .cs-outcomes { grid-template-columns: 1fr 1fr; }
+}
