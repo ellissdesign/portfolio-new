@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ellis Victoria — Product Designer</title>
+  <!-- Fontshare: Clash Display + General Sans -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a href="#projects" class="skip-link">Skip to content</a>
+
+<!-- Interactive canvas (Lusion-style flow field) -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- Grain texture -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Custom cursor -->
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<!-- Loader -->
+<div class="loader" aria-hidden="true">
+  <span class="loader-text">Ellis Victoria</span>
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Primary">
+  <a href="#" class="nav-name">Ellis V.</a>
+  <ul class="nav-links">
+    <li><a href="#projects" data-hover>Work</a></li>
+    <li><a href="#about" data-hover>About</a></li>
+    <li><a href="#contact" data-hover>Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-title">
+    <span class="hero-title-line"><span>Product</span></span>
+    <span class="hero-title-line"><span class="outline">Designer</span></span>
+  </h1>
+  <p class="hero-subtitle">Ellis Victoria — shaping design systems, multi-brand architectures, and interfaces where complexity disappears.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Based in</span>
+      <span class="hero-meta-value">Porto, Portugal</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Focus</span>
+      <span class="hero-meta-value">Design Systems · AI UX</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Status</span>
+      <span class="hero-meta-value">Open to projects</span>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Design Systems</span>
+    <span class="marquee-item">AI &amp; Copilot UX</span>
+    <span class="marquee-item">Accessibility</span>
+    <span class="marquee-item">Multi-brand</span>
+    <span class="marquee-item">Figma Variables</span>
+    <span class="marquee-item">Iconography</span>
+    <span class="marquee-item">Design Systems</span>
+    <span class="marquee-item">AI &amp; Copilot UX</span>
+    <span class="marquee-item">Accessibility</span>
+    <span class="marquee-item">Multi-brand</span>
+    <span class="marquee-item">Figma Variables</span>
+    <span class="marquee-item">Iconography</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="projects-header fade-up">
+    <h2 class="projects-title">Selected work</h2>
+    <span class="projects-count">(4)</span>
+  </div>
+
+  <article class="project fade-up">
+    <div class="project-visual">
+      <div class="project-visual-placeholder" style="background: linear-gradient(145deg, #0a0a0a 0%, #16213e 40%, #2440ee 75%, #00ffb3 130%);" role="img" aria-label="Multi-brand design system visual"></div>
+    </div>
+    <div class="project-content">
+      <span class="project-number">01 / Critical TechWorks</span>
+      <h3 class="project-name">Multi-Brand Design System</h3>
+      <p class="project-desc">One component library. Six brand identities. Three-layer token architecture — zero duplication.</p>
+      <a href="work-design-system.html" class="project-link" data-hover>
+        <span>Case study</span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </article>
+
+  <article class="project fade-up">
+    <div class="project-visual">
+      <img src="../assets/galp/banner.jpg" alt="Galp iconography system" loading="lazy">
+    </div>
+    <div class="project-content">
+      <span class="project-number">02 / Galp</span>
+      <h3 class="project-name">Iconography &amp; Styleguide</h3>
+      <p class="project-desc">Four icon styles from a single grid. A complete visual language for an energy company's digital ecosystem.</p>
+      <a href="work-galp.html" class="project-link" data-hover>
+        <span>Case study</span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </article>
+
+  <article class="project fade-up">
+    <div class="project-visual">
+      <img src="../assets/eurobic/banner.jpg" alt="EuroBic homebanking" loading="lazy">
+    </div>
+    <div class="project-content">
+      <span class="project-number">03 / EuroBic</span>
+      <h3 class="project-name">Homebanking Platform</h3>
+      <p class="project-desc">Redesigning digital banking. Responsive, clear, and calm — making financial complexity feel inevitable.</p>
+      <a href="work-eurobic.html" class="project-link" data-hover>
+        <span>Case study</span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </article>
+
+  <article class="project fade-up">
+    <div class="project-visual">
+      <img src="../assets/marte/banner.jpg" alt="Marte task management" loading="lazy">
+    </div>
+    <div class="project-content">
+      <span class="project-number">04 / Wisout</span>
+      <h3 class="project-name">Marte — Task Management</h3>
+      <p class="project-desc">Enterprise portal for complex task hierarchies. Data visualisation and role-based flows, made readable.</p>
+      <a href="work-marte.html" class="project-link" data-hover>
+        <span>Case study</span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </article>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <p class="about-text">Artist at heart, designer by craft. I build <em>design systems</em> that scale across brands, shape <em>AI interfaces</em> people actually trust, and obsess over the details that make digital products feel <em>inevitable</em> rather than designed. Currently making multi-brand magic at Critical TechWorks for the <em>BMW Group</em> ecosystem.</p>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience fade-up" id="experience">
+  <h2 class="experience-title">Experience</h2>
+
+  <div class="role-item" data-hover>
+    <div class="role-date">2022 — Present<span class="role-current">Current</span></div>
+    <div>
+      <h3 class="role-company">Critical TechWorks</h3>
+      <p class="role-position">Digital Product Designer · Design Systems &amp; AI UX</p>
+    </div>
+  </div>
+
+  <div class="role-item" data-hover>
+    <div class="role-date">2019 — 2022</div>
+    <div>
+      <h3 class="role-company">Hi-Interactive</h3>
+      <p class="role-position">UI Designer · Banking, Iconography, Enterprise</p>
+    </div>
+  </div>
+
+  <div class="role-item" data-hover>
+    <div class="role-date">2016 — 2017</div>
+    <div>
+      <h3 class="role-company">SAMK — Finland</h3>
+      <p class="role-position">Art Teacher's Assistant</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2 class="contact-title fade-up">Let's build<br><span class="outline">something</span></h2>
+  <div class="magnetic-wrap" data-magnetic>
+    <a href="mailto:elliss.vitoria@gmail.com" class="magnetic-btn" data-hover>Say hello</a>
+  </div>
+  <div class="contact-links fade-up">
+    <a href="mailto:elliss.vitoria@gmail.com" data-hover>elliss.vitoria@gmail.com</a>
+    <a href="https://www.linkedin.com/in/ellissvictoria/" target="_blank" rel="noopener noreferrer" data-hover>LinkedIn ↗</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>© 2026 Ellis Victoria</span>
+  <span>Porto, Portugal</span>
+</footer>
+
+</div><!-- /.page -->
+
+<!-- LIBRARIES -->
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+(function () {
+  'use strict';
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ───────────────────────────────────────────────────────────────────
+     INTERACTIVE FLOW-FIELD CANVAS (Lusion-style)
+     Particles drift through an animated noise field and react to cursor.
+     ─────────────────────────────────────────────────────────────────── */
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let w, h, dpr;
+  const mouse = { x: -9999, y: -9999, active: false };
+  let time = 0;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  // Cheap pseudo-noise (flow direction) from position + time
+  function flowAngle(x, y, t) {
+    return (
+      Math.sin(x * 0.0018 + t) +
+      Math.cos(y * 0.0018 - t * 0.8) +
+      Math.sin((x + y) * 0.0012 + t * 0.5)
+    ) * 1.2;
+  }
+
+  function initParticles() {
+    particles = [];
+    const count = Math.min(Math.floor((w * h) / 14000), 160);
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: 0,
+        vy: 0,
+        life: Math.random() * 100,
+        size: Math.random() * 1.6 + 0.4
+      });
+    }
+  }
+
+  function tick() {
+    time += 0.0016;
+    // Fade trails (dark background)
+    ctx.fillStyle = 'rgba(10,10,10,0.14)';
+    ctx.fillRect(0, 0, w, h);
+
+    for (const p of particles) {
+      const angle = flowAngle(p.x, p.y, time);
+      p.vx += Math.cos(angle) * 0.12;
+      p.vy += Math.sin(angle) * 0.12;
+
+      // Cursor repulsion
+      if (mouse.active) {
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 160) {
+          const force = (160 - dist) / 160;
+          p.vx += (dx / dist) * force * 1.2;
+          p.vy += (dy / dist) * force * 1.2;
+        }
+      }
+
+      p.vx *= 0.92;
+      p.vy *= 0.92;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life -= 1;
+
+      // Wrap / respawn
+      if (p.x < 0 || p.x > w || p.y < 0 || p.y > h || p.life < 0) {
+        p.x = Math.random() * w;
+        p.y = Math.random() * h;
+        p.vx = p.vy = 0;
+        p.life = Math.random() * 200 + 50;
+      }
+
+      const speed = Math.hypot(p.vx, p.vy);
+      // colour shifts cyan→blue with speed
+      const cyan = Math.min(speed * 0.5, 1);
+      const r = Math.round(0 + (36 - 0) * (1 - cyan));
+      const g = Math.round(255 * cyan + 64 * (1 - cyan));
+      const b = Math.round(179 * cyan + 238 * (1 - cyan));
+      ctx.fillStyle = `rgba(${r},${g},${b},${0.5 + cyan * 0.4})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size + speed * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  if (!prefersReduced) {
+    resize();
+    initParticles();
+    tick();
+    window.addEventListener('resize', () => { resize(); initParticles(); });
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.active = true;
+    });
+    window.addEventListener('mouseout', () => { mouse.active = false; });
+  } else {
+    canvas.style.display = 'none';
+  }
+
+  /* ─── SMOOTH SCROLL ─────────────────────────────────────────────── */
+  const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+  function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+
+  /* ─── NAV BACKGROUND ON SCROLL ──────────────────────────────────── */
+  const nav = document.querySelector('.nav');
+  lenis.on('scroll', ({ scroll }) => {
+    if (nav) nav.classList.toggle('scrolled', scroll > 60);
+  });
+
+  /* ─── LOADER ────────────────────────────────────────────────────── */
+  const loader = document.querySelector('.loader');
+  const loaderBar = document.querySelector('.loader-bar span');
+
+  if (prefersReduced) {
+    loader.style.display = 'none';
+    animateHero();
+  } else {
+    gsap.timeline()
+      .to(loaderBar, { scaleX: 1, duration: 1.1, ease: 'power2.inOut' })
+      .to(loader, {
+        yPercent: -100,
+        duration: 0.9,
+        ease: 'power3.inOut',
+        onComplete: () => { loader.style.display = 'none'; animateHero(); }
+      }, '+=0.2');
+  }
+
+  /* ─── HERO ──────────────────────────────────────────────────────── */
+  function animateHero() {
+    if (prefersReduced) return;
+    gsap.to('.hero-title-line span', { y: 0, duration: 1.2, stagger: 0.12, ease: 'power4.out' });
+    gsap.to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8, delay: 0.6, ease: 'power2.out' });
+    gsap.to('.hero-meta', { opacity: 1, y: 0, duration: 0.8, delay: 0.8, ease: 'power2.out' });
+    gsap.to('.hero-scroll', { opacity: 1, duration: 0.6, delay: 1.1 });
+  }
+
+  /* ─── MARQUEE (scroll velocity aware) ───────────────────────────── */
+  const marqueeTrack = document.querySelector('.marquee-track');
+  if (marqueeTrack && !prefersReduced) {
+    let mx = 0;
+    gsap.ticker.add(() => {
+      mx -= 0.6;
+      const half = marqueeTrack.scrollWidth / 2;
+      if (-mx >= half) mx = 0;
+      marqueeTrack.style.transform = `translateX(${mx}px)`;
+    });
+  }
+
+  /* ─── FADE UP ───────────────────────────────────────────────────── */
+  if (!prefersReduced) {
+    gsap.utils.toArray('.fade-up').forEach(el => {
+      gsap.to(el, {
+        opacity: 1, y: 0, duration: 1, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+      });
+    });
+  }
+
+  /* ─── PROJECT VISUAL PARALLAX ───────────────────────────────────── */
+  if (!prefersReduced) {
+    gsap.utils.toArray('.project-visual').forEach(vis => {
+      const inner = vis.querySelector('img, .project-visual-placeholder');
+      gsap.fromTo(inner, { yPercent: -8 }, {
+        yPercent: 8, ease: 'none',
+        scrollTrigger: { trigger: vis, start: 'top bottom', end: 'bottom top', scrub: 1 }
+      });
+    });
+  }
+
+  /* ─── ABOUT WORD REVEAL ─────────────────────────────────────────── */
+  const aboutText = document.querySelector('.about-text');
+  if (aboutText) {
+    aboutText.innerHTML = aboutText.innerHTML.replace(/(\S+)/g, (m) => {
+      if (m.startsWith('<') || m.startsWith('</')) return m;
+      return `<span class="word">${m}</span>`;
+    });
+    const words = aboutText.querySelectorAll('.word');
+    if (!prefersReduced) {
+      ScrollTrigger.create({
+        trigger: aboutText, start: 'top 75%', end: 'bottom 45%', scrub: 1,
+        onUpdate: (self) => {
+          const n = Math.floor(self.progress * words.length);
+          words.forEach((wd, i) => wd.classList.toggle('active', i < n));
+        }
+      });
+    } else { words.forEach(wd => wd.classList.add('active')); }
+  }
+
+  /* ─── CUSTOM CURSOR ─────────────────────────────────────────────── */
+  const cursor = document.querySelector('.cursor');
+  const cursorDot = document.querySelector('.cursor-dot');
+  if (cursor && isFinePointer) {
+    let cx = 0, cy = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; cursorDot.style.transform = `translate(${tx - 2}px, ${ty - 2}px)`; });
+    (function move() {
+      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+      cursor.style.transform = `translate(${cx - 7}px, ${cy - 7}px)`;
+      requestAnimationFrame(move);
+    })();
+    document.querySelectorAll('[data-hover], a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+  } else if (cursor) {
+    cursor.style.display = 'none';
+    cursorDot.style.display = 'none';
+  }
+
+  /* ─── MAGNETIC BUTTON ───────────────────────────────────────────── */
+  const magWrap = document.querySelector('[data-magnetic]');
+  if (magWrap && !prefersReduced && isFinePointer) {
+    const btn = magWrap.querySelector('.magnetic-btn');
+    magWrap.addEventListener('mousemove', (e) => {
+      const r = magWrap.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px)`;
+    });
+    magWrap.addEventListener('mouseleave', () => {
+      btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      btn.style.transform = 'translate(0,0)';
+      setTimeout(() => { btn.style.transition = ''; }, 500);
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
