@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Brand Design System — Ellis Victoria</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="case.css">
+  <style>
+    /* ── BRAND SWAP DEMO ─────────────────────────────────────────── */
+    .demo {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: rgba(10,10,10,0.6);
+      backdrop-filter: blur(8px);
+    }
+    .demo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .demo-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .brand-switcher {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .brand-btn {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      padding: 0.45rem 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.3s, border-color 0.3s, background 0.3s;
+    }
+    .brand-btn:hover { color: var(--white); border-color: rgba(245,245,240,0.3); }
+    .brand-btn.active {
+      color: var(--black);
+      border-color: transparent;
+    }
+    .demo-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    /* Component stage — themed per brand */
+    .comp-stage {
+      --stage-bg: #f4f4f2;
+      --stage-fg: #0a0a0a;
+      --stage-muted: #6b6b66;
+      --stage-border: #cfcfca;
+      --stage-field: #ffffff;
+      --stage-font: 'Inter', sans-serif;
+      background: var(--stage-bg);
+      color: var(--stage-fg);
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      transition: background 0.4s, color 0.4s;
+    }
+    .comp-stage.dark {
+      --stage-bg: #0e0e0e;
+      --stage-fg: #f5f5f0;
+      --stage-muted: #9a9a92;
+      --stage-border: #2a2a2a;
+      --stage-field: #161616;
+    }
+    .stage-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      text-align: center;
+    }
+    .stage-theme {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--stage-muted);
+    }
+    .stage-brand {
+      font-family: var(--stage-font);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--stage-fg);
+    }
+    .comp-btn {
+      padding: 0.9rem 1.75rem;
+      font-family: var(--stage-font);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: default;
+      transition: background 0.4s, color 0.4s, border-radius 0.4s, letter-spacing 0.4s, text-transform 0.4s;
+    }
+    .comp-badge {
+      align-self: center;
+      font-family: var(--stage-font);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      background: var(--stage-fg);
+      color: var(--stage-bg);
+      width: fit-content;
+    }
+    .comp-switch {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      justify-content: center;
+    }
+    .comp-switch-track {
+      width: 46px;
+      height: 24px;
+      border-radius: 999px;
+      background: #cfcfca;
+      position: relative;
+      transition: background 0.4s;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .comp-switch-knob {
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.3s;
+    }
+    .comp-switch-track.on .comp-switch-knob { transform: translateX(22px); }
+    .comp-switch-text {
+      font-family: var(--stage-font);
+      font-size: 0.9rem;
+      color: var(--stage-fg);
+    }
+    .comp-field { display: flex; flex-direction: column; gap: 0.45rem; }
+    .comp-field-label {
+      font-family: var(--stage-font);
+      font-size: 0.85rem;
+      color: var(--stage-muted);
+    }
+    .comp-select {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid var(--stage-border);
+      background: var(--stage-field);
+      font-family: var(--stage-font);
+      font-size: 0.9rem;
+      color: var(--stage-fg);
+      transition: border-color 0.4s, background 0.4s;
+    }
+    .comp-select svg { opacity: 0.6; }
+    .comp-helper {
+      font-family: var(--stage-font);
+      font-size: 0.78rem;
+      color: var(--stage-muted);
+    }
+
+    /* Token resolution panel */
+    .token-resolve {
+      background: var(--black);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .resolve-head {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.75rem;
+    }
+    .resolve-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      background: rgba(245,245,240,0.03);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .resolve-name {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .resolve-arrow {
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), rgba(0,255,179,0.4));
+      position: relative;
+    }
+    .resolve-arrow::after {
+      content: '→';
+      position: absolute;
+      right: -6px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.7rem;
+      color: rgba(0,255,179,0.5);
+    }
+    .resolve-value {
+      font-size: 0.7rem;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+    .resolve-swatch {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      transition: background 0.4s;
+    }
+    .resolve-mode {
+      margin-top: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      background: rgba(0,255,179,0.05);
+      border: 1px solid rgba(0,255,179,0.18);
+      border-radius: 6px;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--cyan);
+    }
+
+    @media (max-width: 900px) {
+      .demo-body { grid-template-columns: 1fr; }
+      .demo-header { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="progress-bar" aria-hidden="true"></div>
+
+<div class="loader" aria-hidden="true"><span class="loader-text">01</span></div>
+
+<nav class="nav" aria-label="Primary">
+  <a href="index.html" class="nav-name">Ellis V.</a>
+  <a href="index.html#projects" class="nav-back" data-hover>← Back to work</a>
+</nav>
+
+<div class="page" id="main">
+
+  <!-- HERO -->
+  <header class="cs-hero">
+    <div class="cs-eyebrow">Case Study · 01 · Critical TechWorks</div>
+    <h1 class="cs-title">
+      <span class="cs-title-line"><span>Multi-Brand</span></span>
+      <span class="cs-title-line"><span class="outline">Design System</span></span>
+    </h1>
+    <p class="cs-subtitle">One component library faithfully representing six distinct brand identities — built once, deployed everywhere, with zero duplication.</p>
+  </header>
+
+  <!-- META -->
+  <div class="cs-meta">
+    <div class="cs-meta-cell"><div class="cs-meta-key">Year</div><div class="cs-meta-val">2022 — Present</div></div>
+    <div class="cs-meta-cell"><div class="cs-meta-key">Role</div><div class="cs-meta-val">Lead Product Designer</div></div>
+    <div class="cs-meta-cell"><div class="cs-meta-key">Scope</div><div class="cs-meta-val">6+ Brand Identities</div></div>
+    <div class="cs-meta-cell"><div class="cs-meta-key">Scale</div><div class="cs-meta-val">Global / Enterprise</div></div>
+  </div>
+
+  <!-- VISUAL -->
+  <div class="cs-visual">
+    <div class="cs-visual-placeholder" style="background: linear-gradient(145deg, #0a0a0a 0%, #16213e 40%, #2440ee 75%, #00ffb3 130%);" role="img" aria-label="Multi-brand design system"></div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section class="cs-section">
+    <div class="cs-label fade-up">Overview</div>
+    <h2 class="cs-heading fade-up">One system.<br><em>Six identities.</em></h2>
+    <div class="cs-two-col">
+      <div class="cs-prose fade-up">
+        <p>Designing a single component library that can faithfully represent six distinct brand identities — each with their own visual language, typography, colour philosophy and interaction patterns — without duplicating components or fracturing the system.</p>
+        <p>The challenge was architectural: how do you build once and deploy everywhere, while preserving each brand's identity so thoroughly that no user ever notices they're looking at the same component underneath?</p>
+      </div>
+      <div class="cs-prose fade-up">
+        <p>The answer was a three-layer Figma variable architecture — <strong>Primitive</strong>, <strong>Semantic</strong>, and <strong>Component</strong> — where swapping a single brand mode cascades through every token in the system, updating 100% of components instantly and consistently.</p>
+        <p>This case documents the architectural thinking, the token structure, and how it scaled across global teams.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="cs-section">
+    <div class="cs-label fade-up">Architecture</div>
+    <h2 class="cs-heading fade-up">The three-layer<br><em>token model</em></h2>
+    <div class="cs-grid">
+      <div class="cs-grid-item fade-up">
+        <div class="cs-grid-num">Layer 01</div>
+        <h3 class="cs-grid-title">Primitive — Raw Values</h3>
+        <p class="cs-grid-desc">The foundation. Pure, literal values — hex codes, pixel values, type sizes. No context, no meaning, no aliases. One source of truth for every value.</p>
+      </div>
+      <div class="cs-grid-item fade-up">
+        <div class="cs-grid-num">Layer 02</div>
+        <h3 class="cs-grid-title">Semantic — Brand Aliases</h3>
+        <p class="cs-grid-desc">Each brand is a separate Mode. Tokens describe intent — primary, surface, on-primary — and each mode resolves to different Primitive values.</p>
+      </div>
+      <div class="cs-grid-item fade-up">
+        <div class="cs-grid-num">Layer 03</div>
+        <h3 class="cs-grid-title">Component Tokens</h3>
+        <p class="cs-grid-desc">Every component property maps to a Semantic token — never a Primitive directly. Components never know which brand they're rendering.</p>
+      </div>
+      <div class="cs-grid-item fade-up">
+        <div class="cs-grid-num">Outcome</div>
+        <h3 class="cs-grid-title">One swap, full cascade</h3>
+        <p class="cs-grid-desc">Switching the active Semantic mode is the only action required. Everything else propagates automatically across all components.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE BRAND SWAP DEMO -->
+  <section class="cs-section">
+    <div class="cs-label fade-up">Interactive Demo</div>
+    <h2 class="cs-heading fade-up">Brand swap<br><em>in action</em></h2>
+    <p class="cs-prose fade-up" style="margin-bottom:2.5rem;">Switch between brand modes below. Every component updates simultaneously — no component logic changes. Only the active Semantic mode swaps, resolving to different Primitive values underneath.</p>
+
+    <div class="demo fade-up">
+      <div class="demo-header">
+        <span class="demo-title">Live Component Preview</span>
+        <div class="brand-switcher" role="group" aria-label="Select brand mode">
+          <button class="brand-btn" data-brand="bmw" data-hover aria-pressed="true">BMW</button>
+          <button class="brand-btn" data-brand="mini" data-hover aria-pressed="false">MINI</button>
+          <button class="brand-btn" data-brand="motorrad" data-hover aria-pressed="false">Motorrad</button>
+          <button class="brand-btn" data-brand="rollsroyce" data-hover aria-pressed="false">Rolls-Royce</button>
+          <button class="brand-btn" data-brand="alpina" data-hover aria-pressed="false">Alpina</button>
+          <button class="brand-btn" data-brand="alphabet" data-hover aria-pressed="false">Alphabet</button>
+        </div>
+      </div>
+
+      <div class="demo-body">
+        <!-- Themed component stage -->
+        <div class="comp-stage" id="comp-stage">
+          <div class="stage-meta">
+            <span class="stage-theme" id="stage-theme">Light</span>
+            <span class="stage-brand" id="stage-brand">BMW</span>
+          </div>
+          <button class="comp-btn" id="demo-btn">Primary Action</button>
+          <span class="comp-badge">Label</span>
+          <div class="comp-switch">
+            <span class="comp-switch-track on" id="demo-switch"><span class="comp-switch-knob"></span></span>
+            <span class="comp-switch-text">Enabled</span>
+          </div>
+          <div class="comp-field">
+            <span class="comp-field-label">Label</span>
+            <div class="comp-select" id="demo-select">
+              <span>Content</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <span class="comp-helper">Helper text message</span>
+          </div>
+        </div>
+
+        <!-- Token resolution panel -->
+        <div class="token-resolve" id="token-resolve"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DECISIONS -->
+  <section class="cs-section">
+    <div class="cs-label fade-up">Process</div>
+    <h2 class="cs-heading fade-up">How it<br><em>was built</em></h2>
+    <div class="cs-two-col">
+      <div class="cs-prose fade-up">
+        <p><strong>Brand audit &amp; tokenisation.</strong> Analysed all brand identities side by side — extracting shared structural patterns while preserving individual visual languages.</p>
+        <p><strong>Primitive layer first.</strong> Established full colour scales, spacing, typography, and radius values with strict naming conventions enforced from day one.</p>
+        <p><strong>Semantic modes.</strong> Each brand added as a mode with intent-based token names, so components stay brand-agnostic.</p>
+      </div>
+      <div class="cs-prose fade-up">
+        <p><strong>Component architecture.</strong> Components built once, pointing exclusively to Semantic tokens. No hardcoded primitives, no brand-specific overrides.</p>
+        <p><strong>Tokens Studio &amp; handoff.</strong> Exported via Tokens Studio for Style Dictionary — a single JSON drives all six brand themes.</p>
+        <p><strong>Accessibility validation.</strong> Every brand mode validated independently for WCAG AA contrast across all component states.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="cs-section">
+    <div class="cs-label fade-up">Outcomes</div>
+    <h2 class="cs-heading fade-up">What was<br><em>delivered</em></h2>
+    <div class="cs-outcomes">
+      <div class="cs-outcome fade-up"><div class="cs-outcome-num">6+</div><div class="cs-outcome-label">Brand identities from one system</div></div>
+      <div class="cs-outcome fade-up"><div class="cs-outcome-num">0</div><div class="cs-outcome-label">Duplicate components</div></div>
+      <div class="cs-outcome fade-up"><div class="cs-outcome-num">100%</div><div class="cs-outcome-label">WCAG AA per brand mode</div></div>
+      <div class="cs-outcome fade-up"><div class="cs-outcome-num">1</div><div class="cs-outcome-label">Token export for all brands</div></div>
+    </div>
+    <div class="cs-tags">
+      <span class="cs-tag">Figma Variables</span>
+      <span class="cs-tag">Tokens Studio</span>
+      <span class="cs-tag">Style Dictionary</span>
+      <span class="cs-tag">Multi-brand</span>
+      <span class="cs-tag">WCAG AA</span>
+      <span class="cs-tag">Design Tokens W3C</span>
+    </div>
+  </section>
+
+  <!-- NEXT -->
+  <a href="work-galp.html" class="cs-next-link cs-next" data-hover style="display:block;">
+    <div class="cs-next-label">Next project</div>
+    <div class="cs-next-title">Galp — Iconography</div>
+    <span class="cs-next-arrow">→</span>
+  </a>
+
+  <footer class="footer">
+    <span>© 2026 Ellis Victoria</span>
+    <span>Porto, Portugal</span>
+  </footer>
+
+</div>
+
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="case.js"></script>
+
+<script>
+/* ── BRAND SWAP DEMO ─────────────────────────────────────────────── */
+(function () {
+  'use strict';
+  const brands = {
+    bmw:        { name:'BMW',         primary:'#1C69D4', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'4px',   transform:'none',      spacing:'0.02em', theme:'light', prim:'blue/500',   shape:'shape/sm',   type:'type/sentence' },
+    mini:       { name:'MINI',        primary:'#017EA4', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'teal/600',   shape:'shape/pill', type:'type/sentence' },
+    motorrad:   { name:'Motorrad',    primary:'#0D0D0D', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'0',     transform:'uppercase', spacing:'0.05em', theme:'light', prim:'black/900',  shape:'shape/none', type:'type/upper' },
+    rollsroyce: { name:'Rolls-Royce', primary:'#6D30A7', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'uppercase', spacing:'0.18em', theme:'light', prim:'purple/600', shape:'shape/pill', type:'type/upper-wide' },
+    alpina:     { name:'Alpina',      primary:'#9FE6CC', onPrimary:'#0A1A14', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'dark',  prim:'mint/300',   shape:'shape/pill', type:'type/sentence' },
+    alphabet:   { name:'Alphabet',    primary:'#484EA0', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'indigo/500', shape:'shape/pill', type:'type/sentence' }
+  };
+
+  const stage   = document.getElementById('comp-stage');
+  const btn     = document.getElementById('demo-btn');
+  const sw       = document.getElementById('demo-switch');
+  const select  = document.getElementById('demo-select');
+  const panel   = document.getElementById('token-resolve');
+  const stageTheme = document.getElementById('stage-theme');
+  const stageBrand = document.getElementById('stage-brand');
+  const buttons = document.querySelectorAll('.brand-btn');
+
+  function swapBrand(key) {
+    const b = brands[key];
+    if (!b) return;
+
+    buttons.forEach(button => {
+      const active = button.dataset.brand === key;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      button.style.background = active ? b.primary : '';
+      button.style.color = active ? b.onPrimary : '';
+    });
+
+    stage.classList.toggle('dark', b.theme === 'dark');
+    stageTheme.textContent = b.theme === 'dark' ? 'Dark' : 'Light';
+    stageBrand.textContent = b.name;
+
+    btn.style.background = b.primary;
+    btn.style.color = b.onPrimary;
+    btn.style.borderRadius = b.radius;
+    btn.style.textTransform = b.transform;
+    btn.style.letterSpacing = b.spacing;
+
+    sw.style.background = b.primary;
+    select.style.borderColor = b.primary;
+
+    panel.innerHTML = `
+      <div class="resolve-head">Token Resolution · ${b.name}</div>
+      <div class="resolve-row"><span class="resolve-name">button/bg</span><span class="resolve-arrow"></span><span class="resolve-value"><span class="resolve-swatch" style="background:${b.primary}"></span> action/primary</span></div>
+      <div class="resolve-row"><span class="resolve-name">action/primary</span><span class="resolve-arrow"></span><span class="resolve-value"><span class="resolve-swatch" style="background:${b.primary}"></span> ${b.prim}</span></div>
+      <div class="resolve-row"><span class="resolve-name">button/radius</span><span class="resolve-arrow"></span><span class="resolve-value">${b.shape}</span></div>
+      <div class="resolve-row"><span class="resolve-name">button/case</span><span class="resolve-arrow"></span><span class="resolve-value">${b.type}</span></div>
+      <div class="resolve-mode">MODE: ${b.name} · ${b.theme.toUpperCase()}</div>
+    `;
+  }
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => swapBrand(button.dataset.brand));
+  });
+
+  swapBrand('bmw');
+})();
+</script>
+
+</body>
+</html>
