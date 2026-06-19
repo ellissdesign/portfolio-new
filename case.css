@@ -432,30 +432,23 @@ code {
   margin: 3.5rem 3rem 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
 }
 .cs-figure img {
   width: 100%;
-  max-width: 760px;
   height: auto;
   object-fit: contain;
   background: #f5f5f0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.75rem;
+  padding: 2rem 2.5rem;
+}
+.cs-figure.is-contained {
+  align-items: center;
 }
 .cs-figure.is-contained img {
-  max-width: 420px;
+  max-width: 440px;
+  padding: 2rem;
 }
-.cs-figure figcaption {
-  font-size: 0.8rem;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  max-width: 60ch;
-  text-align: center;
-}
-.cs-figure figcaption strong { color: var(--white); font-weight: 600; }
 
 /* ── RESPONSIVE ────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
