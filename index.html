@@ -223,10 +223,17 @@
      ─────────────────────────────────────────────────────────────────── */
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
-  let particles = [];
   let w, h, dpr;
-  const mouse = { x: -9999, y: -9999, active: false };
   let time = 0;
+  const parallax = { x: 0, y: 0, tx: 0, ty: 0 };
+
+  // Aurora blobs: base position (fraction), drift amplitude, speed, phase, radius, parallax depth
+  const blobs = [
+    { color: [0, 255, 179],  bx: 0.28, by: 0.30, ax: 0.10, ay: 0.12, sp: 0.42, ph: 0.0, rad: 0.62, depth: 26 },
+    { color: [28, 105, 212], bx: 0.74, by: 0.28, ax: 0.12, ay: 0.10, sp: 0.33, ph: 1.7, rad: 0.72, depth: 46 },
+    { color: [109, 48, 167], bx: 0.64, by: 0.76, ax: 0.14, ay: 0.12, sp: 0.27, ph: 3.1, rad: 0.66, depth: 62 },
+    { color: [0, 150, 190],  bx: 0.30, by: 0.72, ax: 0.11, ay: 0.13, sp: 0.37, ph: 4.5, rad: 0.54, depth: 36 }
+  ];
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -239,95 +246,53 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  // Cheap pseudo-noise (flow direction) from position + time
-  function flowAngle(x, y, t) {
-    return (
-      Math.sin(x * 0.0018 + t) +
-      Math.cos(y * 0.0018 - t * 0.8) +
-      Math.sin((x + y) * 0.0012 + t * 0.5)
-    ) * 1.2;
+  function drawBlob(b) {
+    const cx = b.bx * w + Math.sin(time * b.sp + b.ph) * b.ax * w + parallax.x * b.depth;
+    const cy = b.by * h + Math.cos(time * b.sp * 0.9 + b.ph) * b.ay * h + parallax.y * b.depth;
+    const r = b.rad * Math.min(w, h) * (0.9 + 0.1 * Math.sin(time * 0.5 + b.ph));
+    const [cr, cg, cb] = b.color;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    g.addColorStop(0,   `rgba(${cr},${cg},${cb},0.55)`);
+    g.addColorStop(0.4, `rgba(${cr},${cg},${cb},0.22)`);
+    g.addColorStop(1,   `rgba(${cr},${cg},${cb},0)`);
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
   }
 
-  function initParticles() {
-    particles = [];
-    const count = Math.min(Math.floor((w * h) / 14000), 160);
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: 0,
-        vy: 0,
-        life: Math.random() * 100,
-        size: Math.random() * 1.6 + 0.4
-      });
-    }
+  function paint() {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, w, h);
+    ctx.globalCompositeOperation = 'lighter';
+    for (const b of blobs) drawBlob(b);
+    ctx.globalCompositeOperation = 'source-over';
   }
 
   function tick() {
-    time += 0.0016;
-    // Fade trails (dark background)
-    ctx.fillStyle = 'rgba(10,10,10,0.14)';
-    ctx.fillRect(0, 0, w, h);
-
-    for (const p of particles) {
-      const angle = flowAngle(p.x, p.y, time);
-      p.vx += Math.cos(angle) * 0.12;
-      p.vy += Math.sin(angle) * 0.12;
-
-      // Cursor repulsion
-      if (mouse.active) {
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < 160) {
-          const force = (160 - dist) / 160;
-          p.vx += (dx / dist) * force * 1.2;
-          p.vy += (dy / dist) * force * 1.2;
-        }
-      }
-
-      p.vx *= 0.92;
-      p.vy *= 0.92;
-      p.x += p.vx;
-      p.y += p.vy;
-      p.life -= 1;
-
-      // Wrap / respawn
-      if (p.x < 0 || p.x > w || p.y < 0 || p.y > h || p.life < 0) {
-        p.x = Math.random() * w;
-        p.y = Math.random() * h;
-        p.vx = p.vy = 0;
-        p.life = Math.random() * 200 + 50;
-      }
-
-      const speed = Math.hypot(p.vx, p.vy);
-      // colour shifts cyan→blue with speed
-      const cyan = Math.min(speed * 0.5, 1);
-      const r = Math.round(0 + (36 - 0) * (1 - cyan));
-      const g = Math.round(255 * cyan + 64 * (1 - cyan));
-      const b = Math.round(179 * cyan + 238 * (1 - cyan));
-      ctx.fillStyle = `rgba(${r},${g},${b},${0.5 + cyan * 0.4})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size + speed * 0.3, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
+    time += 0.006;
+    parallax.x += (parallax.tx - parallax.x) * 0.05;
+    parallax.y += (parallax.ty - parallax.y) * 0.05;
+    paint();
     requestAnimationFrame(tick);
   }
 
   if (!prefersReduced) {
     resize();
-    initParticles();
     tick();
-    window.addEventListener('resize', () => { resize(); initParticles(); });
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.active = true;
-    });
-    window.addEventListener('mouseout', () => { mouse.active = false; });
+    window.addEventListener('resize', resize);
+    if (isFinePointer) {
+      window.addEventListener('mousemove', (e) => {
+        parallax.tx = (e.clientX / w - 0.5) * 2;
+        parallax.ty = (e.clientY / h - 0.5) * 2;
+      });
+    }
   } else {
-    canvas.style.display = 'none';
+    // Static aurora for reduced-motion users
+    resize();
+    paint();
+    window.addEventListener('resize', () => { resize(); paint(); });
   }
 
   /* ─── SMOOTH SCROLL ─────────────────────────────────────────────── */
