@@ -446,12 +446,12 @@
 (function () {
   'use strict';
   const brands = {
-    bmw:        { name:'BMW',         primary:'#1C69D4', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'4px',   transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/blue/500',   shape:'radius/sm',   type:'type/sentence' },
-    mini:       { name:'MINI',        primary:'#017EA4', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/teal/600',   shape:'radius/pill', type:'type/sentence' },
-    motorrad:   { name:'Motorrad',    primary:'#0D0D0D', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'0',     transform:'uppercase', spacing:'0.05em', theme:'light', prim:'Colors/black/900',  shape:'radius/none', type:'type/upper' },
-    rollsroyce: { name:'Rolls-Royce', primary:'#6D30A7', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'uppercase', spacing:'0.18em', theme:'light', prim:'Colors/purple/600', shape:'radius/pill', type:'type/upper-wide' },
-    alpina:     { name:'Alpina',      primary:'#9FE6CC', onPrimary:'#0A1A14', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'dark',  prim:'Colors/mint/300',   shape:'radius/pill', type:'type/sentence' },
-    alphabet:   { name:'Alphabet',    primary:'#484EA0', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/indigo/500', shape:'radius/pill', type:'type/sentence' }
+    bmw:        { name:'BMW',         primary:'#1C69D4', onPrimary:'#ffffff', font:"'Helvetica Neue', Helvetica, Arial, sans-serif",         radius:'4px',   transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/blue/500',   shape:'radius/sm',   type:'type/sentence' },
+    mini:       { name:'MINI',        primary:'#017EA4', onPrimary:'#ffffff', font:"'Trebuchet MS', 'Segoe UI', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/teal/600',   shape:'radius/pill', type:'type/sentence' },
+    motorrad:   { name:'Motorrad',    primary:'#0D0D0D', onPrimary:'#ffffff', font:"'Arial Narrow', 'Helvetica Neue', sans-serif",         radius:'0',     transform:'uppercase', spacing:'0.05em', theme:'light', prim:'Colors/black/900',  shape:'radius/none', type:'type/upper' },
+    rollsroyce: { name:'Rolls-Royce', primary:'#6D30A7', onPrimary:'#ffffff', font:"Georgia, 'Times New Roman', serif",         radius:'999px', transform:'uppercase', spacing:'0.18em', theme:'light', prim:'Colors/purple/600', shape:'radius/pill', type:'type/upper-wide' },
+    alpina:     { name:'Alpina',      primary:'#9FE6CC', onPrimary:'#0A1A14', font:"'Inter', 'Helvetica Neue', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'dark',  prim:'Colors/mint/300',   shape:'radius/pill', type:'type/sentence' },
+    alphabet:   { name:'Alphabet',    primary:'#484EA0', onPrimary:'#ffffff', font:"'Century Gothic', 'Futura', 'Trebuchet MS', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/indigo/500', shape:'radius/pill', type:'type/sentence' }
   };
 
   const stage   = document.getElementById('comp-stage');
@@ -476,6 +476,7 @@
     });
 
     stage.classList.toggle('dark', b.theme === 'dark');
+    stage.style.setProperty('--stage-font', b.font);
     stageTheme.textContent = b.theme === 'dark' ? 'Dark' : 'Light';
     stageBrand.textContent = b.name;
 
