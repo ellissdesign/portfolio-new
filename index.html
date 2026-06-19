@@ -225,15 +225,11 @@
   const ctx = canvas.getContext('2d');
   let w, h, dpr;
   let time = 0;
-  const parallax = { x: 0, y: 0, tx: 0, ty: 0 };
+  const mouse = { x: -9999, y: -9999, ex: -9999, ey: -9999 };
 
-  // Aurora blobs: base position (fraction), drift amplitude, speed, phase, radius, parallax depth
-  const blobs = [
-    { color: [0, 255, 179],  bx: 0.28, by: 0.30, ax: 0.10, ay: 0.12, sp: 0.42, ph: 0.0, rad: 0.62, depth: 26 },
-    { color: [28, 105, 212], bx: 0.74, by: 0.28, ax: 0.12, ay: 0.10, sp: 0.33, ph: 1.7, rad: 0.72, depth: 46 },
-    { color: [109, 48, 167], bx: 0.64, by: 0.76, ax: 0.14, ay: 0.12, sp: 0.27, ph: 3.1, rad: 0.66, depth: 62 },
-    { color: [0, 150, 190],  bx: 0.30, by: 0.72, ax: 0.11, ay: 0.13, sp: 0.37, ph: 4.5, rad: 0.54, depth: 36 }
-  ];
+  const SPACING = 40;    // px between dots
+  const RADIUS = 220;    // cursor influence radius
+  const PULL = 0.34;     // how strongly dots bend toward the cursor
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -246,34 +242,56 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  function drawBlob(b) {
-    const cx = b.bx * w + Math.sin(time * b.sp + b.ph) * b.ax * w + parallax.x * b.depth;
-    const cy = b.by * h + Math.cos(time * b.sp * 0.9 + b.ph) * b.ay * h + parallax.y * b.depth;
-    const r = b.rad * Math.min(w, h) * (0.9 + 0.1 * Math.sin(time * 0.5 + b.ph));
-    const [cr, cg, cb] = b.color;
-    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-    g.addColorStop(0,   `rgba(${cr},${cg},${cb},0.55)`);
-    g.addColorStop(0.4, `rgba(${cr},${cg},${cb},0.22)`);
-    g.addColorStop(1,   `rgba(${cr},${cg},${cb},0)`);
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
   function paint() {
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = '#0a0a0a';
-    ctx.fillRect(0, 0, w, h);
-    ctx.globalCompositeOperation = 'lighter';
-    for (const b of blobs) drawBlob(b);
-    ctx.globalCompositeOperation = 'source-over';
+    ctx.clearRect(0, 0, w, h);
+    mouse.ex += (mouse.x - mouse.ex) * 0.12;
+    mouse.ey += (mouse.y - mouse.ey) * 0.12;
+
+    const cols = Math.ceil(w / SPACING) + 1;
+    const rows = Math.ceil(h / SPACING) + 1;
+
+    for (let iy = 0; iy < rows; iy++) {
+      for (let ix = 0; ix < cols; ix++) {
+        const gx = ix * SPACING;
+        const gy = iy * SPACING;
+
+        // slow ambient wave rolling through the grid
+        const wave = Math.sin(gx * 0.012 + time) + Math.cos(gy * 0.012 + time * 0.8);
+        const waveN = (wave + 2) / 4; // 0..1
+
+        let px = gx;
+        let py = gy;
+        let glow = 0;
+
+        // magnetic bend toward the cursor
+        const dx = mouse.ex - gx;
+        const dy = mouse.ey - gy;
+        const dist = Math.hypot(dx, dy);
+        if (dist < RADIUS) {
+          const f = 1 - dist / RADIUS;
+          const ease = f * f;
+          px += dx * PULL * ease;
+          py += dy * PULL * ease;
+          glow = ease;
+        }
+
+        const intensity = Math.min(1, glow * 1.1 + waveN * 0.25);
+        const size = 1 + glow * 2.4 + waveN * 0.6;
+        const r = Math.round(120 + (0 - 120) * intensity);
+        const g = Math.round(120 + (255 - 120) * intensity);
+        const b = Math.round(115 + (179 - 115) * intensity);
+        const alpha = 0.12 + intensity * 0.7;
+
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.beginPath();
+        ctx.arc(px, py, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
   }
 
   function tick() {
-    time += 0.006;
-    parallax.x += (parallax.tx - parallax.x) * 0.05;
-    parallax.y += (parallax.ty - parallax.y) * 0.05;
+    time += 0.012;
     paint();
     requestAnimationFrame(tick);
   }
@@ -283,13 +301,11 @@
     tick();
     window.addEventListener('resize', resize);
     if (isFinePointer) {
-      window.addEventListener('mousemove', (e) => {
-        parallax.tx = (e.clientX / w - 0.5) * 2;
-        parallax.ty = (e.clientY / h - 0.5) * 2;
-      });
+      window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      window.addEventListener('mouseout', () => { mouse.x = -9999; mouse.y = -9999; });
     }
   } else {
-    // Static aurora for reduced-motion users
+    // Static dot grid for reduced-motion users
     resize();
     paint();
     window.addEventListener('resize', () => { resize(); paint(); });
