@@ -315,23 +315,23 @@
     <div class="cs-grid">
       <div class="cs-grid-item fade-up">
         <div class="cs-grid-num">Layer 01</div>
-        <h3 class="cs-grid-title">Primitive — Raw Values</h3>
-        <p class="cs-grid-desc">The foundation. Pure, literal values — hex codes, pixel values, type sizes. No context, no meaning, no aliases. One source of truth for every value.</p>
+        <h3 class="cs-grid-title">Primitives — Raw Values</h3>
+        <p class="cs-grid-desc">The foundation: <code>_Primitives</code> (307 values) plus shared <code>Public</code> collections for colour (76), sizing (40) and typography (3). Pure literal values — hex, px, type — with no brand context or meaning.</p>
       </div>
       <div class="cs-grid-item fade-up">
         <div class="cs-grid-num">Layer 02</div>
-        <h3 class="cs-grid-title">Semantic — Brand Aliases</h3>
-        <p class="cs-grid-desc">Each brand is a separate Mode. Tokens describe intent — primary, surface, on-primary — and each mode resolves to different Primitive values.</p>
+        <h3 class="cs-grid-title">Brand — Semantic Aliases</h3>
+        <p class="cs-grid-desc">The <code>_Brand</code> collection — 1,127 variables. Each brand (BMW, MINI, Motorrad, Rolls-Royce, Alpina, Alphabet) resolves through its own <code>light</code> and <code>dark</code> modes, aliasing straight back to Primitives.</p>
       </div>
       <div class="cs-grid-item fade-up">
         <div class="cs-grid-num">Layer 03</div>
         <h3 class="cs-grid-title">Component Tokens</h3>
-        <p class="cs-grid-desc">Every component property maps to a Semantic token — never a Primitive directly. Components never know which brand they're rendering.</p>
+        <p class="cs-grid-desc">Within <code>_Brand</code>, tokens are grouped per component — <code>button</code> (65), <code>cards</code> (24), <code>checkbox</code> (41), <code>accordion</code> (21) and more. Every property maps to a semantic alias, never a raw value.</p>
       </div>
       <div class="cs-grid-item fade-up">
         <div class="cs-grid-num">Outcome</div>
         <h3 class="cs-grid-title">One swap, full cascade</h3>
-        <p class="cs-grid-desc">Switching the active Semantic mode is the only action required. Everything else propagates automatically across all components.</p>
+        <p class="cs-grid-desc">Switching a brand mode re-resolves all 1,127 aliases at once. Add <code>_Breakpoint</code> (431) and <code>Alphabets-Localization</code> (11) and the system spans brand, theme, screen size and locale.</p>
       </div>
     </div>
   </section>
@@ -391,12 +391,12 @@
     <div class="cs-two-col">
       <div class="cs-prose fade-up">
         <p><strong>Brand audit &amp; tokenisation.</strong> Analysed all brand identities side by side — extracting shared structural patterns while preserving individual visual languages.</p>
-        <p><strong>Primitive layer first.</strong> Established full colour scales, spacing, typography, and radius values with strict naming conventions enforced from day one.</p>
-        <p><strong>Semantic modes.</strong> Each brand added as a mode with intent-based token names, so components stay brand-agnostic.</p>
+        <p><strong>Primitive foundation first.</strong> Established <code>_Primitives</code> (307) plus the shared <code>Public</code> colour, sizing and typography collections, with strict naming conventions enforced from day one.</p>
+        <p><strong>Brand modes.</strong> Each brand added inside <code>_Brand</code> with its own <code>light</code> and <code>dark</code> modes, so components stay brand-agnostic.</p>
       </div>
       <div class="cs-prose fade-up">
-        <p><strong>Component architecture.</strong> Components built once, pointing exclusively to Semantic tokens. No hardcoded primitives, no brand-specific overrides.</p>
-        <p><strong>Tokens Studio &amp; handoff.</strong> Exported via Tokens Studio for Style Dictionary — a single JSON drives all six brand themes.</p>
+        <p><strong>Component grouping.</strong> 1,127 brand variables organised into component groups — <code>button</code>, <code>cards</code>, <code>checkbox</code>, <code>accordion</code> — each pointing exclusively to semantic aliases.</p>
+        <p><strong>Responsive &amp; localisation.</strong> <code>_Breakpoint</code> (431) and <code>Alphabets-Localization</code> (11) extend the system across screen sizes and locales without touching components.</p>
         <p><strong>Accessibility validation.</strong> Every brand mode validated independently for WCAG AA contrast across all component states.</p>
       </div>
     </div>
@@ -407,10 +407,10 @@
     <div class="cs-label fade-up">Outcomes</div>
     <h2 class="cs-heading fade-up">What was<br><em>delivered</em></h2>
     <div class="cs-outcomes">
-      <div class="cs-outcome fade-up"><div class="cs-outcome-num">6+</div><div class="cs-outcome-label">Brand identities from one system</div></div>
-      <div class="cs-outcome fade-up"><div class="cs-outcome-num">0</div><div class="cs-outcome-label">Duplicate components</div></div>
+      <div class="cs-outcome fade-up"><div class="cs-outcome-num">6</div><div class="cs-outcome-label">Brands × light / dark modes</div></div>
+      <div class="cs-outcome fade-up"><div class="cs-outcome-num">1,127</div><div class="cs-outcome-label">Brand variables, zero duplication</div></div>
+      <div class="cs-outcome fade-up"><div class="cs-outcome-num">307</div><div class="cs-outcome-label">Primitive source values</div></div>
       <div class="cs-outcome fade-up"><div class="cs-outcome-num">100%</div><div class="cs-outcome-label">WCAG AA per brand mode</div></div>
-      <div class="cs-outcome fade-up"><div class="cs-outcome-num">1</div><div class="cs-outcome-label">Token export for all brands</div></div>
     </div>
     <div class="cs-tags">
       <span class="cs-tag">Figma Variables</span>
@@ -446,12 +446,12 @@
 (function () {
   'use strict';
   const brands = {
-    bmw:        { name:'BMW',         primary:'#1C69D4', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'4px',   transform:'none',      spacing:'0.02em', theme:'light', prim:'blue/500',   shape:'shape/sm',   type:'type/sentence' },
-    mini:       { name:'MINI',        primary:'#017EA4', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'teal/600',   shape:'shape/pill', type:'type/sentence' },
-    motorrad:   { name:'Motorrad',    primary:'#0D0D0D', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'0',     transform:'uppercase', spacing:'0.05em', theme:'light', prim:'black/900',  shape:'shape/none', type:'type/upper' },
-    rollsroyce: { name:'Rolls-Royce', primary:'#6D30A7', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'uppercase', spacing:'0.18em', theme:'light', prim:'purple/600', shape:'shape/pill', type:'type/upper-wide' },
-    alpina:     { name:'Alpina',      primary:'#9FE6CC', onPrimary:'#0A1A14', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'dark',  prim:'mint/300',   shape:'shape/pill', type:'type/sentence' },
-    alphabet:   { name:'Alphabet',    primary:'#484EA0', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'indigo/500', shape:'shape/pill', type:'type/sentence' }
+    bmw:        { name:'BMW',         primary:'#1C69D4', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'4px',   transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/blue/500',   shape:'radius/sm',   type:'type/sentence' },
+    mini:       { name:'MINI',        primary:'#017EA4', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/teal/600',   shape:'radius/pill', type:'type/sentence' },
+    motorrad:   { name:'Motorrad',    primary:'#0D0D0D', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'0',     transform:'uppercase', spacing:'0.05em', theme:'light', prim:'Colors/black/900',  shape:'radius/none', type:'type/upper' },
+    rollsroyce: { name:'Rolls-Royce', primary:'#6D30A7', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'uppercase', spacing:'0.18em', theme:'light', prim:'Colors/purple/600', shape:'radius/pill', type:'type/upper-wide' },
+    alpina:     { name:'Alpina',      primary:'#9FE6CC', onPrimary:'#0A1A14', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'dark',  prim:'Colors/mint/300',   shape:'radius/pill', type:'type/sentence' },
+    alphabet:   { name:'Alphabet',    primary:'#484EA0', onPrimary:'#ffffff', font:"'Inter', sans-serif",         radius:'999px', transform:'none',      spacing:'0.02em', theme:'light', prim:'Colors/indigo/500', shape:'radius/pill', type:'type/sentence' }
   };
 
   const stage   = document.getElementById('comp-stage');
@@ -489,11 +489,11 @@
     select.style.borderColor = b.primary;
 
     panel.innerHTML = `
-      <div class="resolve-head">Token Resolution · ${b.name}</div>
-      <div class="resolve-row"><span class="resolve-name">button/bg</span><span class="resolve-arrow"></span><span class="resolve-value"><span class="resolve-swatch" style="background:${b.primary}"></span> action/primary</span></div>
-      <div class="resolve-row"><span class="resolve-name">action/primary</span><span class="resolve-arrow"></span><span class="resolve-value"><span class="resolve-swatch" style="background:${b.primary}"></span> ${b.prim}</span></div>
+      <div class="resolve-head">Token Resolution · ${b.name} · ${b.theme.toUpperCase()}</div>
+      <div class="resolve-row"><span class="resolve-name">button/bg</span><span class="resolve-arrow"></span><span class="resolve-value"><span class="resolve-swatch" style="background:${b.primary}"></span> ${b.name}/primaryColor/BC-2</span></div>
+      <div class="resolve-row"><span class="resolve-name">${b.name}/primaryColor/BC-2</span><span class="resolve-arrow"></span><span class="resolve-value"><span class="resolve-swatch" style="background:${b.primary}"></span> ${b.prim}</span></div>
+      <div class="resolve-row"><span class="resolve-name">button/fg</span><span class="resolve-arrow"></span><span class="resolve-value"><span class="resolve-swatch" style="background:${b.onPrimary}"></span> Colors ${b.name}/greyScale/GS-0</span></div>
       <div class="resolve-row"><span class="resolve-name">button/radius</span><span class="resolve-arrow"></span><span class="resolve-value">${b.shape}</span></div>
-      <div class="resolve-row"><span class="resolve-name">button/case</span><span class="resolve-arrow"></span><span class="resolve-value">${b.type}</span></div>
       <div class="resolve-mode">MODE: ${b.name} · ${b.theme.toUpperCase()}</div>
     `;
   }
