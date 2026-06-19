@@ -289,7 +289,7 @@
 
   <!-- VISUAL -->
   <div class="cs-visual">
-    <img src="neo-banner.jpg" alt="NEO multi-brand design system" loading="lazy">
+    <img src="neo-banner.png" alt="NEO multi-brand design system" loading="lazy">
   </div>
 
   <!-- OVERVIEW -->
@@ -302,8 +302,8 @@
         <p>The challenge was architectural: how do you build once and deploy everywhere, while preserving each brand's identity so thoroughly that no user ever notices they're looking at the same component underneath?</p>
       </div>
       <div class="cs-prose fade-up">
-        <p>The answer was a three-layer Figma variable architecture — <strong>Primitive</strong>, <strong>Semantic</strong>, and <strong>Component</strong> — where swapping a single brand mode cascades through every token in the system, updating 100% of components instantly and consistently.</p>
-        <p>This case documents the architectural thinking, the token structure, and how it scaled across global teams.</p>
+        <p>The answer was a layered Figma variable architecture split across dedicated collections — <strong>Primitives</strong> for raw values, a <strong>Brand</strong> collection where <strong>BMW</strong>, <strong>MINI</strong>, <strong>Motorrad</strong>, <strong>Rolls-Royce</strong>, <strong>Alpina</strong> and <strong>Alphabet</strong> each live as their own mode, and <strong>Public</strong> collections for shared colour, sizing and typography. Switching a single brand mode cascades through every alias, restyling 100% of components instantly.</p>
+        <p>Tokens are grouped by component — <code>accordion</code>, <code>badge</code>, <code>button</code>, <code>cards</code>, <code>checkbox</code> and more — and resolve through <code>light</code> and <code>dark</code> modes, so one definition stays consistent across every brand and theme. This case documents that token structure and how it scaled across global teams.</p>
       </div>
     </div>
   </section>
