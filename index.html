@@ -397,8 +397,8 @@
   if (!prefersReduced) {
     gsap.utils.toArray('.project-visual').forEach(vis => {
       const inner = vis.querySelector('img, .project-visual-placeholder');
-      gsap.fromTo(inner, { yPercent: -8 }, {
-        yPercent: 8, ease: 'none',
+      gsap.fromTo(inner, { objectPosition: '50% 35%' }, {
+        objectPosition: '50% 65%', ease: 'none',
         scrollTrigger: { trigger: vis, start: 'top bottom', end: 'bottom top', scrub: 1 }
       });
     });
