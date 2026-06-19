@@ -429,7 +429,7 @@ code {
 
 /* ── FIGURE (diagram / supporting images) ──────────────────────────── */
 .cs-figure {
-  margin: 4rem 3rem 0;
+  margin: 4rem 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -440,8 +440,7 @@ code {
   object-fit: contain;
 }
 .cs-figure.is-contained img {
-  max-width: 460px;
-  border-radius: var(--radius);
+  max-width: 620px;
 }
 
 /* ── RESPONSIVE ────────────────────────────────────────────────────── */
@@ -455,7 +454,7 @@ code {
   .cs-grid { grid-template-columns: 1fr; }
   .cs-outcomes { grid-template-columns: repeat(2, 1fr); }
   .cs-next { padding: 5rem 1.5rem; }
-  .cs-figure { margin: 3rem 1.5rem 0; }
+  .cs-figure { margin: 3rem 0 0; }
   .footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
 }
 
