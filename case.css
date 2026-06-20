@@ -256,7 +256,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* ── SECTIONS ──────────────────────────────────────────────────────── */
-.cs-section { padding: 6rem 3rem; }
+.cs-section { padding: 2rem 3rem; }
 .cs-label {
   font-size: 0.7rem;
   letter-spacing: 0.18em;
