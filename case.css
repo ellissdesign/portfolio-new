@@ -442,6 +442,16 @@ code {
 .cs-figure.is-contained img {
   max-width: 620px;
 }
+.cs-figure--zoom {
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+.cs-figure--zoom img {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cs-figure--zoom:hover img {
+  transform: scale(1.06);
+}
 
 /* ── RESPONSIVE ────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
