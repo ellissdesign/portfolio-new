@@ -1,17 +1,21 @@
 /* =========================================================================
    Ellis Victoria — Case Study shared motion script (v2)
-   Flow-field canvas whose palette shifts as you scroll · Lenis · GSAP
+   Magnetic dot-grid canvas whose glow shifts as you scroll · Lenis · GSAP
    ========================================================================= */
 (function () {
   'use strict';
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isFinePointer = window.matchMedia('(pointer: fine)').matches;
 
-  /* ── SCROLL-REACTIVE FLOW-FIELD CANVAS ───────────────────────────── */
+  /* ── SCROLL-REACTIVE MAGNETIC DOT-GRID CANVAS ───────────────── */
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas ? canvas.getContext('2d') : null;
-  let particles = [], w, h, dpr, time = 0;
-  const mouse = { x: -9999, y: -9999, active: false };
+  let w, h, dpr, time = 0;
+  const mouse = { x: -9999, y: -9999, ex: -9999, ey: -9999 };
+
+  const SPACING = 40;    // px between dots
+  const RADIUS = 220;    // cursor influence radius
+  const PULL = 0.34;     // bend strength toward the cursor
 
   // Palette stops the background travels through as you scroll (0 → 1)
   const palette = [
@@ -43,75 +47,63 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  function flowAngle(x, y, t) {
-    return (
-      Math.sin(x * 0.0018 + t) +
-      Math.cos(y * 0.0018 - t * 0.8) +
-      Math.sin((x + y) * 0.0012 + t * 0.5)
-    ) * 1.2;
-  }
+  function paint() {
+    ctx.clearRect(0, 0, w, h);
+    mouse.ex += (mouse.x - mouse.ex) * 0.12;
+    mouse.ey += (mouse.y - mouse.ey) * 0.12;
 
-  function initParticles() {
-    particles = [];
-    const count = Math.min(Math.floor((w * h) / 14000), 160);
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * w, y: Math.random() * h,
-        vx: 0, vy: 0,
-        life: Math.random() * 100,
-        size: Math.random() * 1.6 + 0.4
-      });
+    const base = paletteColor(scrollProgress); // glow hue shifts as you scroll
+    const cols = Math.ceil(w / SPACING) + 1;
+    const rows = Math.ceil(h / SPACING) + 1;
+
+    for (let iy = 0; iy < rows; iy++) {
+      for (let ix = 0; ix < cols; ix++) {
+        const gx = ix * SPACING, gy = iy * SPACING;
+        const wave = Math.sin(gx * 0.012 + time) + Math.cos(gy * 0.012 + time * 0.8);
+        const waveN = (wave + 2) / 4;
+
+        let px = gx, py = gy, glow = 0;
+        const dx = mouse.ex - gx, dy = mouse.ey - gy;
+        const dist = Math.hypot(dx, dy);
+        if (dist < RADIUS) {
+          const f = 1 - dist / RADIUS;
+          const ease = f * f;
+          px += dx * PULL * ease;
+          py += dy * PULL * ease;
+          glow = ease;
+        }
+
+        const intensity = Math.min(1, glow * 1.1 + waveN * 0.25);
+        const size = 1 + glow * 2.4 + waveN * 0.6;
+        const r = Math.round(120 + (base.r - 120) * intensity);
+        const g = Math.round(120 + (base.g - 120) * intensity);
+        const b = Math.round(115 + (base.b - 115) * intensity);
+        const alpha = 0.12 + intensity * 0.7;
+
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.beginPath();
+        ctx.arc(px, py, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
   }
 
   function tick() {
-    time += 0.0016;
-    ctx.fillStyle = 'rgba(10,10,10,0.14)';
-    ctx.fillRect(0, 0, w, h);
-
-    const base = paletteColor(scrollProgress);
-
-    for (const p of particles) {
-      const angle = flowAngle(p.x, p.y, time);
-      p.vx += Math.cos(angle) * 0.12;
-      p.vy += Math.sin(angle) * 0.12;
-
-      if (mouse.active) {
-        const dx = p.x - mouse.x, dy = p.y - mouse.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist < 160) {
-          const force = (160 - dist) / 160;
-          p.vx += (dx / dist) * force * 1.2;
-          p.vy += (dy / dist) * force * 1.2;
-        }
-      }
-
-      p.vx *= 0.92; p.vy *= 0.92;
-      p.x += p.vx; p.y += p.vy;
-      p.life -= 1;
-
-      if (p.x < 0 || p.x > w || p.y < 0 || p.y > h || p.life < 0) {
-        p.x = Math.random() * w; p.y = Math.random() * h;
-        p.vx = p.vy = 0; p.life = Math.random() * 200 + 50;
-      }
-
-      const speed = Math.hypot(p.vx, p.vy);
-      const intensity = Math.min(speed * 0.5, 1);
-      ctx.fillStyle = `rgba(${Math.round(base.r)},${Math.round(base.g)},${Math.round(base.b)},${0.4 + intensity * 0.45})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size + speed * 0.3, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    time += 0.012;
+    paint();
     requestAnimationFrame(tick);
   }
 
   if (canvas && !prefersReduced) {
-    resize(); initParticles(); tick();
-    window.addEventListener('resize', () => { resize(); initParticles(); });
-    window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
-    window.addEventListener('mouseout', () => { mouse.active = false; });
+    resize(); tick();
+    window.addEventListener('resize', resize);
+    if (isFinePointer) {
+      window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      window.addEventListener('mouseout', () => { mouse.x = -9999; mouse.y = -9999; });
+    }
   } else if (canvas) {
-    canvas.style.display = 'none';
+    resize(); paint();
+    window.addEventListener('resize', () => { resize(); paint(); });
   }
 
   /* ── SMOOTH SCROLL ───────────────────────────────────────────────── */
