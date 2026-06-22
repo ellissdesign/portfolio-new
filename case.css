@@ -452,6 +452,10 @@ code {
 .cs-figure--zoom:hover img {
   transform: scale(1.06);
 }
+.cs-two-col .cs-figure {
+  align-self: center;
+  margin-top: 0;
+}
 
 /* ── RESPONSIVE ────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
