@@ -202,12 +202,12 @@
       if (btn) btn.setAttribute('aria-pressed', String(theme === 'light'));
     }
     let saved = 'dark';
-    try { saved = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    try { saved = sessionStorage.getItem('theme') || 'dark'; } catch (e) {}
     apply(saved);
     if (btn) btn.addEventListener('click', () => {
       const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       apply(next);
-      try { localStorage.setItem('theme', next); } catch (e) {}
+      try { sessionStorage.setItem('theme', next); } catch (e) {}
     });
   })();
 })();
