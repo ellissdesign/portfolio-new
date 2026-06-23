@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
   <title>Ellis Victoria — Product Designer</title>
   <!-- Fontshare: Clash Display + General Sans -->
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500&display=swap" rel="stylesheet">
@@ -31,11 +32,17 @@
 <!-- NAV -->
 <nav class="nav" aria-label="Primary">
   <a href="#" class="nav-name">Ellis V.</a>
-  <ul class="nav-links">
-    <li><a href="#projects" data-hover>Work</a></li>
-    <li><a href="#about" data-hover>About</a></li>
-    <li><a href="#contact" data-hover>Contact</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#projects" data-hover>Work</a></li>
+      <li><a href="#about" data-hover>About</a></li>
+      <li><a href="#contact" data-hover>Contact</a></li>
+    </ul>
+    <button type="button" class="theme-toggle" data-hover aria-label="Toggle light and dark theme" aria-pressed="false">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
 </nav>
 
 <div class="page">
@@ -255,6 +262,11 @@
     mouse.ex += (mouse.x - mouse.ex) * 0.12;
     mouse.ey += (mouse.y - mouse.ey) * 0.12;
 
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    const bg0 = light ? 40 : 120, bg1 = light ? 40 : 120, bg2 = light ? 38 : 115;
+    const t0 = light ? 10 : 0, t1 = light ? 143 : 255, t2 = light ? 99 : 179;
+    const baseAlpha = light ? 0.08 : 0.12, glowAlpha = light ? 0.5 : 0.7;
+
     const cols = Math.ceil(w / SPACING) + 1;
     const rows = Math.ceil(h / SPACING) + 1;
 
@@ -285,10 +297,10 @@
 
         const intensity = Math.min(1, glow * 1.1 + waveN * 0.25);
         const size = 1 + glow * 2.4 + waveN * 0.6;
-        const r = Math.round(120 + (0 - 120) * intensity);
-        const g = Math.round(120 + (255 - 120) * intensity);
-        const b = Math.round(115 + (179 - 115) * intensity);
-        const alpha = 0.12 + intensity * 0.7;
+        const r = Math.round(bg0 + (t0 - bg0) * intensity);
+        const g = Math.round(bg1 + (t1 - bg1) * intensity);
+        const b = Math.round(bg2 + (t2 - bg2) * intensity);
+        const alpha = baseAlpha + intensity * glowAlpha;
 
         ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
         ctx.beginPath();
@@ -448,6 +460,25 @@
       setTimeout(() => { btn.style.transition = ''; }, 500);
     });
   }
+
+  /* ─── THEME TOGGLE ──────────────────────────────────────── */
+  (function initThemeToggle() {
+    const root = document.documentElement;
+    const btn = document.querySelector('.theme-toggle');
+    function apply(theme) {
+      if (theme === 'light') root.setAttribute('data-theme', 'light');
+      else root.removeAttribute('data-theme');
+      if (btn) btn.setAttribute('aria-pressed', String(theme === 'light'));
+    }
+    let saved = 'dark';
+    try { saved = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    apply(saved);
+    if (btn) btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      apply(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
 
 })();
 </script>
