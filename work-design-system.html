@@ -239,12 +239,18 @@
     .resolve-mode {
       margin-top: 0.75rem;
       padding: 0.7rem 0.9rem;
-      background: rgba(0,255,179,0.05);
-      border: 1px solid rgba(0,255,179,0.18);
+      background: rgba(0,255,179,0.08);
+      border: 1px solid rgba(0,255,179,0.28);
       border-radius: 6px;
       font-size: 0.62rem;
       letter-spacing: 0.1em;
+      font-weight: 600;
       color: var(--cyan);
+    }
+    [data-theme="light"] .resolve-mode {
+      background: rgba(6,121,79,0.1);
+      border-color: rgba(6,121,79,0.45);
+      color: #06794f;
     }
 
     @media (max-width: 900px) {
