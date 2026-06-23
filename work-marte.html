@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
   <title>Marte — Task Management — Ellis Victoria</title>
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="case.css">
@@ -21,7 +22,13 @@
 
 <nav class="nav" aria-label="Primary">
   <a href="index.html" class="nav-name">Ellis V.</a>
-  <a href="index.html#projects" class="nav-back" data-hover>← Back to work</a>
+  <div class="nav-right">
+    <a href="index.html#projects" class="nav-back" data-hover>← Back to work</a>
+    <button type="button" class="theme-toggle" data-hover aria-label="Toggle light and dark theme" aria-pressed="false">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
 </nav>
 
 <div class="page" id="main">

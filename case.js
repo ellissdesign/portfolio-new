@@ -53,6 +53,9 @@
     mouse.ey += (mouse.y - mouse.ey) * 0.12;
 
     const base = paletteColor(scrollProgress); // glow hue shifts as you scroll
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    const bg0 = light ? 40 : 120, bg1 = light ? 40 : 120, bg2 = light ? 38 : 115;
+    const baseAlpha = light ? 0.08 : 0.12, glowAlpha = light ? 0.5 : 0.7;
     const cols = Math.ceil(w / SPACING) + 1;
     const rows = Math.ceil(h / SPACING) + 1;
 
@@ -75,10 +78,10 @@
 
         const intensity = Math.min(1, glow * 1.1 + waveN * 0.25);
         const size = 1 + glow * 2.4 + waveN * 0.6;
-        const r = Math.round(120 + (base.r - 120) * intensity);
-        const g = Math.round(120 + (base.g - 120) * intensity);
-        const b = Math.round(115 + (base.b - 115) * intensity);
-        const alpha = 0.12 + intensity * 0.7;
+        const r = Math.round(bg0 + (base.r - bg0) * intensity);
+        const g = Math.round(bg1 + (base.g - bg1) * intensity);
+        const b = Math.round(bg2 + (base.b - bg2) * intensity);
+        const alpha = baseAlpha + intensity * glowAlpha;
 
         ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
         ctx.beginPath();
@@ -188,4 +191,23 @@
     cursor.style.display = 'none';
     if (cursorDot) cursorDot.style.display = 'none';
   }
+
+  /* ── THEME TOGGLE ────────────────────────────────────────────────── */
+  (function initThemeToggle() {
+    const root = document.documentElement;
+    const btn = document.querySelector('.theme-toggle');
+    function apply(theme) {
+      if (theme === 'light') root.setAttribute('data-theme', 'light');
+      else root.removeAttribute('data-theme');
+      if (btn) btn.setAttribute('aria-pressed', String(theme === 'light'));
+    }
+    let saved = 'dark';
+    try { saved = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    apply(saved);
+    if (btn) btn.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      apply(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
 })();
