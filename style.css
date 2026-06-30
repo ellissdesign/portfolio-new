@@ -425,6 +425,18 @@ img { display: block; max-width: 100%; height: auto; }
   transform: scale(1.06);
   filter: grayscale(0) brightness(1);
 }
+/* Card 02 — show the full screenshot without cropping */
+.project-visual--contain {
+  background: #141414;
+}
+.project-visual--contain img {
+  object-fit: contain;
+  filter: none;
+}
+.project:hover .project-visual--contain img {
+  transform: scale(1.03);
+  filter: none;
+}
 .project-content { padding: 2rem 0; }
 .project-number {
   font-family: var(--font-display);
