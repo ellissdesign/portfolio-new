@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>(function(){try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+  <script>(function(){try{if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
   <title>Ellis Victoria — Digital Product Designer</title>
   <!-- Fontshare: Clash Display + General Sans -->
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500&display=swap" rel="stylesheet">
@@ -117,12 +117,29 @@
 
   <article class="project fade-up">
     <div class="project-visual">
+      <a href="work-ai-agent.html" class="project-visual-link" data-hover aria-label="View Build with AI Agents case study">
+        <img src="assets/ai-copilot/project-card.jpg" alt="Building a portfolio with a custom AI design agent" loading="lazy">
+      </a>
+    </div>
+    <div class="project-content">
+      <span class="project-number">02 / Personal Project</span>
+      <h3 class="project-name">Build with AI Agents</h3>
+      <p class="project-desc">I didn't just use AI — I engineered the builder. A custom Web Designer agent, encoded with my standards, driven by planned, single-purpose prompts.</p>
+      <a href="work-ai-agent.html" class="project-link" data-hover>
+        <span>Case study</span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </article>
+
+  <article class="project fade-up">
+    <div class="project-visual">
       <a href="work-galp.html" class="project-visual-link" data-hover aria-label="View Galp Iconography &amp; Styleguide case study">
         <img src="assets/galp/project-card.png" alt="Galp iconography and styleguide" loading="lazy">
       </a>
     </div>
     <div class="project-content">
-      <span class="project-number">02 / Galp</span>
+      <span class="project-number">03 / Galp</span>
       <h3 class="project-name">Iconography &amp; Styleguide</h3>
       <p class="project-desc">Four icon styles from a single grid. A complete visual language for an energy company's digital ecosystem.</p>
       <a href="work-galp.html" class="project-link" data-hover>
@@ -139,7 +156,7 @@
       </a>
     </div>
     <div class="project-content">
-      <span class="project-number">03 / EuroBic</span>
+      <span class="project-number">04 / EuroBic</span>
       <h3 class="project-name">Homebanking Platform</h3>
       <p class="project-desc">Redesigning digital banking. Responsive, clear, and calm — making financial complexity feel inevitable.</p>
       <a href="work-eurobic.html" class="project-link" data-hover>
@@ -156,7 +173,7 @@
       </a>
     </div>
     <div class="project-content">
-      <span class="project-number">04 / Wisout</span>
+      <span class="project-number">05 / Wisout</span>
       <h3 class="project-name">Marte — Task Management</h3>
       <p class="project-desc">Enterprise portal for complex task hierarchies. Data visualisation and role-based flows, made readable.</p>
       <a href="work-marte.html" class="project-link" data-hover>
@@ -470,12 +487,12 @@
       if (btn) btn.setAttribute('aria-pressed', String(theme === 'light'));
     }
     let saved = 'dark';
-    try { saved = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    try { saved = sessionStorage.getItem('theme') || 'dark'; } catch (e) {}
     apply(saved);
     if (btn) btn.addEventListener('click', () => {
       const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       apply(next);
-      try { localStorage.setItem('theme', next); } catch (e) {}
+      try { sessionStorage.setItem('theme', next); } catch (e) {}
     });
   })();
 
