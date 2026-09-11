@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){try{if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+  <title>Resume — Ellis Victoria | Lead Design Systems Architect</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── RESUME STYLES ────────────────────────────────────────────────── */
+    .resume-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 8rem 2rem 6rem;
+    }
+    .resume-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2.5rem;
+      margin-bottom: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .resume-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .resume-title-text {
+      font-size: 1.1rem;
+      color: var(--cyan);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .resume-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .resume-contacts a {
+      color: var(--white);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .resume-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.65rem 1.25rem;
+      background: rgba(0,255,179,0.1);
+      color: var(--cyan);
+      border: 1px solid rgba(0,255,179,0.3);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .print-btn:hover {
+      background: rgba(0,255,179,0.2);
+      border-color: var(--cyan);
+    }
+
+    .resume-section {
+      margin-bottom: 3rem;
+    }
+    .resume-section-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+    .resume-summary-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--white);
+      opacity: 0.92;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: rgba(245,245,240,0.03);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+    }
+    .skill-card-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .skill-card-list {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Experience Timeline */
+    .exp-item {
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .exp-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+    .exp-company {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+    .exp-date {
+      font-size: 0.82rem;
+      color: var(--cyan);
+      font-weight: 500;
+    }
+    .exp-role {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .exp-bullets {
+      list-style-type: none;
+      padding: 0;
+    }
+    .exp-bullets li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--white);
+      opacity: 0.9;
+    }
+    .exp-bullets li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+    }
+    .exp-bullets li strong {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* Print Styles */
+    @media print {
+      body { background: #fff !important; color: #111 !important; cursor: auto !important; }
+      nav, #bg-canvas, .grain, .cursor, .cursor-dot, .loader, .print-btn, .skip-link, .footer { display: none !important; }
+      .page, .resume-page { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+      .resume-header { border-bottom-color: #ccc !important; }
+      .resume-name { color: #000 !important; }
+      .resume-title-text { color: #007a53 !important; }
+      .resume-contacts, .resume-contacts a { color: #444 !important; }
+      .resume-section-title { color: #007a53 !important; border-bottom-color: #ccc !important; }
+      .skill-card { background: #f8f8f8 !important; border-color: #e0e0e0 !important; }
+      .skill-card-title, .exp-company { color: #000 !important; }
+      .exp-date, .exp-bullets li strong { color: #007a53 !important; }
+      .exp-bullets li { color: #222 !important; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Primary">
+  <a href="index.html" class="nav-name">Ellis V.</a>
+  <div class="nav-right">
+    <a href="index.html#projects" class="nav-links">Work</a>
+    <button type="button" class="print-btn" onclick="window.print()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / Save PDF
+    </button>
+    <button type="button" class="theme-toggle" data-hover aria-label="Toggle light and dark theme" aria-pressed="false">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="page" id="main">
+  <div class="resume-page">
+
+    <!-- HEADER -->
+    <header class="resume-header">
+      <div>
+        <h1 class="resume-name">Ellis Victoria</h1>
+        <div class="resume-title-text">Lead Design Systems Architect &amp; AI UX Specialist</div>
+        <div class="resume-contacts">
+          <span>Porto, Portugal</span> ·
+          <a href="mailto:elliss.vitoria@gmail.com">elliss.vitoria@gmail.com</a> ·
+          <a href="https://www.linkedin.com/in/ellissvictoria/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a> ·
+          <a href="index.html">Portfolio Website ↗</a>
+        </div>
+      </div>
+      <div class="resume-actions">
+        <button type="button" class="print-btn" onclick="window.print()">Print / Save PDF ↗</button>
+      </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <section class="resume-section">
+      <h2 class="resume-section-title">Executive Profile</h2>
+      <p class="resume-summary-text">
+        Lead Design Systems Architect with 7+ years of experience engineering multi-brand component architectures, 3-layer design token models (Figma Variables &amp; Style Dictionary), and trustworthy AI user interfaces. Proven leadership at Critical TechWorks architecting the NEO Design System across 6 global BMW Group brands, driving 100% WCAG 2.2 AA accessibility compliance, and automating design-to-code parity workflows using custom AI design agents and Storybook.
+      </p>
+    </section>
+
+    <!-- CORE COMPETENCIES -->
+    <section class="resume-section">
+      <h2 class="resume-section-title">Core Competencies</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-title">Design Token Architecture</div>
+          <div class="skill-card-list">Figma Variables (Primitives → Semantic Aliases → Component Tokens), Style Dictionary, Tokens Studio, Multi-Brand Variable Modes, Dark/Light Theme Switching.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">AI &amp; Design Operations</div>
+          <div class="skill-card-list">Custom AI Design Agents, Copilot Prompt Architecture, Figma API Automation, Storybook Design Parity Audits, Automated WCAG 2.2 AA Verification.</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">Product &amp; Systems Craft</div>
+          <div class="skill-card-list">Multi-Brand Governance, Accessibility (WCAG 2.2 AA/AAA), OutSystems Enterprise UI, Iconography Grid Systems (24px construction), FinTech &amp; Web Portals.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK EXPERIENCE -->
+    <section class="resume-section">
+      <h2 class="resume-section-title">Work Experience</h2>
+
+      <article class="exp-item">
+        <div class="exp-head">
+          <h3 class="exp-company">Critical TechWorks</h3>
+          <span class="exp-date">2022 — Present</span>
+        </div>
+        <div class="exp-role">Lead Design Systems Architect · Multi-Brand &amp; AI UX</div>
+        <ul class="exp-bullets">
+          <li>Architected a 3-layer multi-brand token system in Figma (<strong>307 Primitives</strong>, <strong>1,127 Brand Aliases</strong>) serving 6 global BMW Group brand identities (BMW, MINI, Motorrad, Rolls-Royce, Alpina, Alphabet).</li>
+          <li>Achieved <strong>0% component duplication</strong> across light and dark modes while ensuring <strong>100% WCAG 2.2 AA contrast compliance</strong> across all brand modes.</li>
+          <li>Engineered custom AI Copilot agents and Figma API skills to automate design-to-code parity audits against Storybook, reducing manual QA time.</li>
+          <li>Established multi-brand variable mode mapping, component governance standards, and seamless developer handoff guidelines.</li>
+        </ul>
+      </article>
+
+      <article class="exp-item">
+        <div class="exp-head">
+          <h3 class="exp-company">Hi-Interactive</h3>
+          <span class="exp-date">2019 — 2022</span>
+        </div>
+        <div class="exp-role">UI Designer · Banking, Iconography &amp; OutSystems Enterprise</div>
+        <ul class="exp-bullets">
+          <li>Redesigned EuroBic homebanking web and mobile platforms using OutSystems patterns, simplifying multi-level navigation for all demographic age groups.</li>
+          <li>Engineered a unified 24×24px iconography grid system for Galp delivering <strong>4 icon styles</strong> (Fill/Outline, Form/Simple), standardizing digital ecosystem guidelines.</li>
+          <li>Transformed Marte task management portal into scannable role-based dashboards, eliminating operational task bottlenecks for enterprise workers.</li>
+        </ul>
+      </article>
+
+      <article class="exp-item">
+        <div class="exp-head">
+          <h3 class="exp-company">SAMK — Satakunta University of Applied Sciences, Finland</h3>
+          <span class="exp-date">2016 — 2017</span>
+        </div>
+        <div class="exp-role">Art Teacher's Assistant</div>
+        <ul class="exp-bullets">
+          <li>Supported visual arts instruction, studio workshop facilitation, and student design critiques.</li>
+        </ul>
+      </article>
+    </section>
+
+    <footer class="footer" style="padding-top: 2rem; border-top: 1px solid var(--border);">
+      <span>© 2026 Ellis Victoria — Lead Design Systems Architect</span>
+      <span>Porto, Portugal</span>
+    </footer>
+
+  </div>
+</div>
+
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+(function() {
+  'use strict';
+  /* Theme toggle */
+  const root = document.documentElement;
+  const btn = document.querySelector('.theme-toggle');
+  function apply(theme) {
+    if (theme === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    if (btn) btn.setAttribute('aria-pressed', String(theme === 'light'));
+  }
+  let saved = 'dark';
+  try { saved = sessionStorage.getItem('theme') || 'dark'; } catch (e) {}
+  apply(saved);
+  if (btn) btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    apply(next);
+    try { sessionStorage.setItem('theme', next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
