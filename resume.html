@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>(function(){try{if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
-  <title>Resume — Ellis Victoria | Lead Design Systems Architect</title>
+  <title>Resume — Ellis Victoria | Senior Product Designer, Design Systems &amp; AI UX</title>
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
@@ -117,6 +117,92 @@
       line-height: 1.6;
     }
 
+    /* Header badge */
+    .resume-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--cyan);
+      background: rgba(0,255,179,0.1);
+      border: 1px solid rgba(0,255,179,0.3);
+      border-radius: 100px;
+      padding: 0.4rem 0.9rem;
+      margin-top: 1rem;
+    }
+
+    /* About Me */
+    .resume-about {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .resume-about-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .resume-about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(0.2);
+    }
+    .resume-about-text {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--white);
+      opacity: 0.9;
+    }
+    .resume-about-text p { margin-bottom: 1rem; }
+    .resume-about-text p:last-child { margin-bottom: 0; }
+    .resume-about-text em { font-style: normal; color: var(--cyan); }
+    @media (max-width: 640px) {
+      .resume-about { grid-template-columns: 120px 1fr; gap: 1.5rem; }
+    }
+
+    /* Education & Courses */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .edu-card {
+      background: rgba(245,245,240,0.03);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+    }
+    .edu-card-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .edu-card-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.3rem; }
+    .edu-card-date { font-size: 0.78rem; color: var(--cyan); }
+    .courses-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
+    }
+    .courses-list li {
+      position: relative;
+      padding-left: 1.25rem;
+      font-size: 0.88rem;
+      color: var(--white);
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+    .courses-list li::before { content: "\2192"; position: absolute; left: 0; color: var(--cyan); }
+
     /* Experience Timeline */
     .exp-item {
       margin-bottom: 2.5rem;
@@ -184,6 +270,15 @@
       .skill-card-title, .exp-company { color: #000 !important; }
       .exp-date, .exp-bullets li strong { color: #007a53 !important; }
       .exp-bullets li { color: #222 !important; }
+      .resume-badge { background: #eafaf3 !important; border-color: #b7e8d3 !important; color: #007a53 !important; }
+      .resume-about-photo { border-color: #e0e0e0 !important; }
+      .resume-about-text, .resume-about-text em { color: #222 !important; }
+      .edu-card { background: #f8f8f8 !important; border-color: #e0e0e0 !important; }
+      .edu-card-title { color: #000 !important; }
+      .edu-card-sub { color: #444 !important; }
+      .edu-card-date { color: #007a53 !important; }
+      .courses-list li { color: #222 !important; }
+      .courses-list li::before { color: #007a53 !important; }
     }
   </style>
 </head>
@@ -219,24 +314,40 @@
     <header class="resume-header">
       <div>
         <h1 class="resume-name">Ellis Victoria</h1>
-        <div class="resume-title-text">Lead Design Systems Architect &amp; AI UX Specialist</div>
+        <div class="resume-title-text">Senior Product Designer · Design Systems &amp; AI UX</div>
         <div class="resume-contacts">
           <span>Porto, Portugal</span> ·
           <a href="mailto:elliss.vitoria@gmail.com">elliss.vitoria@gmail.com</a> ·
           <a href="https://www.linkedin.com/in/ellissvictoria/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a> ·
           <a href="index.html">Portfolio Website ↗</a>
         </div>
+        <div class="resume-badge">7+ years experience</div>
       </div>
       <div class="resume-actions">
         <button type="button" class="print-btn" onclick="window.print()">Print / Save PDF ↗</button>
       </div>
     </header>
 
+    <!-- ABOUT ME -->
+    <section class="resume-section">
+      <h2 class="resume-section-title">About Me</h2>
+      <div class="resume-about">
+        <div class="resume-about-photo">
+          <img src="profile.jpg" alt="Portrait of Ellis Victoria" loading="lazy">
+        </div>
+        <div class="resume-about-text">
+          <p>I'm a Porto-based product designer who moved from a <em>Visual Arts &amp; Multimedia</em> background into digital product design, and later specialised in design systems and multi-brand architecture.</p>
+          <p>At Critical TechWorks I contribute to a design system supporting six BMW Group brands, focusing on token architecture, accessibility, and the workflows that keep design and engineering aligned across teams.</p>
+          <p>I care about systems that stay usable as they grow — clear documentation, consistent naming, and tooling (including AI-assisted workflows) that removes repetitive work instead of adding to it.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- SUMMARY -->
     <section class="resume-section">
-      <h2 class="resume-section-title">Executive Profile</h2>
+      <h2 class="resume-section-title">Summary</h2>
       <p class="resume-summary-text">
-        Lead Design Systems Architect with 7+ years of experience engineering multi-brand component architectures, 3-layer design token models (Figma Variables &amp; Style Dictionary), and trustworthy AI user interfaces. Proven leadership at Critical TechWorks architecting the NEO Design System across 6 global BMW Group brands, driving 100% WCAG 2.2 AA accessibility compliance, and automating design-to-code parity workflows using custom AI design agents and Storybook.
+        Senior product designer specialising in multi-brand design systems, Figma Variables, accessibility, and AI-assisted design operations. Currently contributing to a design system serving six BMW Group brands at Critical TechWorks.
       </p>
     </section>
 
@@ -245,16 +356,16 @@
       <h2 class="resume-section-title">Core Competencies</h2>
       <div class="skills-grid">
         <div class="skill-card">
-          <div class="skill-card-title">Design Token Architecture</div>
-          <div class="skill-card-list">Figma Variables (Primitives → Semantic Aliases → Component Tokens), Style Dictionary, Tokens Studio, Multi-Brand Variable Modes, Dark/Light Theme Switching.</div>
+          <div class="skill-card-title">Design Systems &amp; Tokens</div>
+          <div class="skill-card-list">Design system architecture, design tokens and semantic theming, Figma Variables and modes, multi-brand governance.</div>
         </div>
         <div class="skill-card">
-          <div class="skill-card-title">AI &amp; Design Operations</div>
-          <div class="skill-card-list">Custom AI Design Agents, Copilot Prompt Architecture, Figma API Automation, Storybook Design Parity Audits, Automated WCAG 2.2 AA Verification.</div>
+          <div class="skill-card-title">Accessibility &amp; Craft</div>
+          <div class="skill-card-list">Accessibility and WCAG 2.2, component libraries and documentation, enterprise product design.</div>
         </div>
         <div class="skill-card">
-          <div class="skill-card-title">Product &amp; Systems Craft</div>
-          <div class="skill-card-list">Multi-Brand Governance, Accessibility (WCAG 2.2 AA/AAA), OutSystems Enterprise UI, Iconography Grid Systems (24px construction), FinTech &amp; Web Portals.</div>
+          <div class="skill-card-title">AI &amp; Research</div>
+          <div class="skill-card-list">AI-assisted design operations, user research and stakeholder workshops.</div>
         </div>
       </div>
     </section>
@@ -268,12 +379,13 @@
           <h3 class="exp-company">Critical TechWorks</h3>
           <span class="exp-date">2022 — Present</span>
         </div>
-        <div class="exp-role">Lead Design Systems Architect · Multi-Brand &amp; AI UX</div>
+        <div class="exp-role">Design Systems · Multi-Brand Architecture · AI UX</div>
         <ul class="exp-bullets">
-          <li>Architected a 3-layer multi-brand token system in Figma (<strong>307 Primitives</strong>, <strong>1,127 Brand Aliases</strong>) serving 6 global BMW Group brand identities (BMW, MINI, Motorrad, Rolls-Royce, Alpina, Alphabet).</li>
-          <li>Achieved <strong>0% component duplication</strong> across light and dark modes while ensuring <strong>100% WCAG 2.2 AA contrast compliance</strong> across all brand modes.</li>
-          <li>Engineered custom AI Copilot agents and Figma API skills to automate design-to-code parity audits against Storybook, reducing manual QA time.</li>
-          <li>Established multi-brand variable mode mapping, component governance standards, and seamless developer handoff guidelines.</li>
+          <li>Contributed to the architecture of a multi-brand design system supporting six BMW Group brands, including BMW, MINI, MOTORRAD, Rolls-Royce, ALPINA, and Alphabet.</li>
+          <li>Built a three-layer token architecture using Figma Variables, separating primitives, semantic brand modes, and component tokens to support brand switching without duplicating components.</li>
+          <li>Facilitated stakeholder workshops and usability testing to align teams around shared component and token decisions.</li>
+          <li>Embedded WCAG 2.2 accessibility criteria into component review and validation workflows across brand modes.</li>
+          <li>Used AI-assisted workflows to accelerate design-system documentation, token audits, and design-to-code consistency checks.</li>
         </ul>
       </article>
 
@@ -282,28 +394,55 @@
           <h3 class="exp-company">Hi-Interactive</h3>
           <span class="exp-date">2019 — 2022</span>
         </div>
-        <div class="exp-role">UI Designer · Banking, Iconography &amp; OutSystems Enterprise</div>
+        <div class="exp-role">UI Designer</div>
         <ul class="exp-bullets">
-          <li>Redesigned EuroBic homebanking web and mobile platforms using OutSystems patterns, simplifying multi-level navigation for all demographic age groups.</li>
-          <li>Engineered a unified 24×24px iconography grid system for Galp delivering <strong>4 icon styles</strong> (Fill/Outline, Form/Simple), standardizing digital ecosystem guidelines.</li>
-          <li>Transformed Marte task management portal into scannable role-based dashboards, eliminating operational task bottlenecks for enterprise workers.</li>
+          <li>Created a unified iconography and UI style guide for Galp, defining four icon styles on a shared 24×24px grid across web and mobile products.</li>
+          <li>Redesigned EuroBic homebanking experiences for web and mobile using OutSystems patterns, simplifying navigation and improving interface clarity.</li>
         </ul>
       </article>
 
       <article class="exp-item">
         <div class="exp-head">
-          <h3 class="exp-company">SAMK — Satakunta University of Applied Sciences, Finland</h3>
+          <h3 class="exp-company">SAMK — Finland</h3>
           <span class="exp-date">2016 — 2017</span>
         </div>
         <div class="exp-role">Art Teacher's Assistant</div>
         <ul class="exp-bullets">
-          <li>Supported visual arts instruction, studio workshop facilitation, and student design critiques.</li>
+          <li>Supported teaching and provided digital/traditional media assistance.</li>
         </ul>
       </article>
     </section>
 
+    <!-- EDUCATION -->
+    <section class="resume-section">
+      <h2 class="resume-section-title">Education</h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-card-title">Visual Arts &amp; Multimedia</div>
+          <div class="edu-card-sub">University of Évora, Portugal</div>
+          <div class="edu-card-date">2013 — 2016</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-card-title">Web Design</div>
+          <div class="edu-card-sub">World Academy, Lisbon, Portugal</div>
+          <div class="edu-card-date">2017 — 2018</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COURSES & DEVELOPMENT -->
+    <section class="resume-section">
+      <h2 class="resume-section-title">Courses &amp; Development</h2>
+      <ul class="courses-list">
+        <li>UX Certificate — NN/g, 2022</li>
+        <li>AI Design Systems — Memorisely</li>
+        <li>UX Research: Journey Mapping — LinkedIn, 2022</li>
+        <li>Master Lateral Thinking — Udemy, 2024</li>
+      </ul>
+    </section>
+
     <footer class="footer" style="padding-top: 2rem; border-top: 1px solid var(--border);">
-      <span>© 2026 Ellis Victoria — Lead Design Systems Architect</span>
+      <span>© 2026 Ellis Victoria — Senior Product Designer, Design Systems &amp; AI UX</span>
       <span>Porto, Portugal</span>
     </footer>
 
@@ -312,22 +451,121 @@
 
 <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
-(function() {
+(function () {
   'use strict';
-  /* Theme toggle */
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ─── FLOW-FIELD CANVAS ───────────────────────────────────────── */
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, time = 0;
+  const mouse = { x: -9999, y: -9999, ex: -9999, ey: -9999 };
+  const SPACING = 40, RADIUS = 220, PULL = 0.34;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function paint() {
+    ctx.clearRect(0, 0, w, h);
+    mouse.ex += (mouse.x - mouse.ex) * 0.12;
+    mouse.ey += (mouse.y - mouse.ey) * 0.12;
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    const bg0 = light ? 40 : 120, bg1 = light ? 40 : 120, bg2 = light ? 38 : 115;
+    const t0 = light ? 10 : 0, t1 = light ? 143 : 255, t2 = light ? 99 : 179;
+    const baseAlpha = light ? 0.08 : 0.12, glowAlpha = light ? 0.5 : 0.7;
+    const cols = Math.ceil(w / SPACING) + 1, rows = Math.ceil(h / SPACING) + 1;
+
+    for (let iy = 0; iy < rows; iy++) {
+      for (let ix = 0; ix < cols; ix++) {
+        const gx = ix * SPACING, gy = iy * SPACING;
+        const wave = Math.sin(gx * 0.012 + time) + Math.cos(gy * 0.012 + time * 0.8);
+        const waveN = (wave + 2) / 4;
+        let px = gx, py = gy, glow = 0;
+        const dx = mouse.ex - gx, dy = mouse.ey - gy;
+        const dist = Math.hypot(dx, dy);
+        if (dist < RADIUS) {
+          const f = 1 - dist / RADIUS, ease = f * f;
+          px += dx * PULL * ease; py += dy * PULL * ease;
+          glow = ease;
+        }
+        const intensity = Math.min(1, glow * 1.1 + waveN * 0.25);
+        const size = 1 + glow * 2.4 + waveN * 0.6;
+        const r = Math.round(bg0 + (t0 - bg0) * intensity);
+        const g = Math.round(bg1 + (t1 - bg1) * intensity);
+        const b = Math.round(bg2 + (t2 - bg2) * intensity);
+        const alpha = baseAlpha + intensity * glowAlpha;
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.beginPath();
+        ctx.arc(px, py, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  function tick() { time += 0.012; paint(); requestAnimationFrame(tick); }
+
+  if (!prefersReduced) {
+    resize(); tick();
+    window.addEventListener('resize', resize);
+    if (isFinePointer) {
+      window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      window.addEventListener('mouseout', () => { mouse.x = -9999; mouse.y = -9999; });
+    }
+  } else {
+    resize(); paint();
+    window.addEventListener('resize', () => { resize(); paint(); });
+  }
+
+  /* ─── SMOOTH SCROLL ───────────────────────────────────────────── */
+  const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+  function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  const nav = document.querySelector('.nav');
+  lenis.on('scroll', ({ scroll }) => { if (nav) nav.classList.toggle('scrolled', scroll > 60); });
+
+  /* ─── CUSTOM CURSOR ───────────────────────────────────────────── */
+  const cursor = document.querySelector('.cursor');
+  const cursorDot = document.querySelector('.cursor-dot');
+  if (cursor && isFinePointer) {
+    let cx = 0, cy = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      cursorDot.style.transform = `translate(${tx - 2}px, ${ty - 2}px)`;
+    });
+    (function move() {
+      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+      cursor.style.transform = `translate(${cx - 7}px, ${cy - 7}px)`;
+      requestAnimationFrame(move);
+    })();
+    document.querySelectorAll('[data-hover], a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+  } else if (cursor) {
+    cursor.style.display = 'none';
+    if (cursorDot) cursorDot.style.display = 'none';
+  }
+
+  /* ─── THEME TOGGLE ────────────────────────────────────────────── */
   const root = document.documentElement;
-  const btn = document.querySelector('.theme-toggle');
-  function apply(theme) {
+  const themeBtn = document.querySelector('.theme-toggle');
+  function applyTheme(theme) {
     if (theme === 'light') root.setAttribute('data-theme', 'light');
     else root.removeAttribute('data-theme');
-    if (btn) btn.setAttribute('aria-pressed', String(theme === 'light'));
+    if (themeBtn) themeBtn.setAttribute('aria-pressed', String(theme === 'light'));
   }
-  let saved = 'dark';
-  try { saved = sessionStorage.getItem('theme') || 'dark'; } catch (e) {}
-  apply(saved);
-  if (btn) btn.addEventListener('click', () => {
+  let savedTheme = 'dark';
+  try { savedTheme = sessionStorage.getItem('theme') || 'dark'; } catch (e) {}
+  applyTheme(savedTheme);
+  if (themeBtn) themeBtn.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    apply(next);
+    applyTheme(next);
     try { sessionStorage.setItem('theme', next); } catch (e) {}
   });
 })();
