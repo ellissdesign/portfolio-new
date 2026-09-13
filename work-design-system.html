@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script>(function(){try{if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
   <title>Multi-Brand Design System — Ellis Victoria</title>
+  <meta name="description" content="Case study: a three-layer Figma token architecture powering a single component library across six BMW Group brands, with zero component duplication.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:title" content="Multi-Brand Design System — Ellis Victoria">
+  <meta property="og:description" content="One component library, six brand identities, three-layer token architecture — zero duplication.">
+  <meta property="og:image" content="neo-banner.webp">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="case.css">
   <style>
@@ -302,9 +310,28 @@
     <div class="cs-meta-cell"><div class="cs-meta-key">Scale</div><div class="cs-meta-val">Global / Enterprise</div></div>
   </div>
 
+  <!-- AT A GLANCE EXECUTIVE SUMMARY -->
+  <div class="cs-exec-summary fade-up">
+    <div class="cs-exec-title">⚡ Executive Summary (30-Sec Scan)</div>
+    <div class="cs-exec-grid">
+      <div>
+        <div class="cs-exec-item-title">Core Challenge</div>
+        <div class="cs-exec-item-value">Unify 6 distinct brand identities (BMW, MINI, Motorrad, Rolls-Royce, Alpina, Alphabet) into 1 component library without duplication.</div>
+      </div>
+      <div>
+        <div class="cs-exec-item-title">Architectural Solution</div>
+        <div class="cs-exec-item-value">3-layer token structure: <strong>307 Primitives</strong> → <strong>1,127 Brand Aliases</strong> → <strong>Component Tokens</strong> with light/dark modes.</div>
+      </div>
+      <div>
+        <div class="cs-exec-item-title">Quantified Impact</div>
+        <div class="cs-exec-item-value"><strong>0% component duplication</strong> across 6 brands, <strong>100% WCAG 2.2 AA</strong> contrast compliance, and automated Storybook parity audits.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- VISUAL -->
   <div class="cs-visual">
-    <img src="neo-banner.png" alt="NEO multi-brand design system" loading="lazy">
+    <img src="neo-banner.webp" alt="NEO multi-brand design system" loading="lazy">
   </div>
 
   <!-- OVERVIEW -->

@@ -280,6 +280,54 @@ img { display: block; max-width: 100%; height: auto; }
   font-weight: 500;
 }
 
+/* ── EXECUTIVE SUMMARY / AT A GLANCE CARD ──────────────────────────── */
+.cs-exec-summary {
+  margin: 2.5rem 3rem 0;
+  padding: 2.25rem 2.5rem;
+  background: rgba(14, 14, 14, 0.85);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--cyan);
+  border-radius: var(--radius);
+  backdrop-filter: blur(12px);
+}
+[data-theme="light"] .cs-exec-summary {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(10, 10, 10, 0.12);
+  border-left-color: var(--cyan);
+}
+.cs-exec-title {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cs-exec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.75rem;
+}
+.cs-exec-item-title {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+.cs-exec-item-value {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--white);
+  line-height: 1.5;
+}
+.cs-exec-item-value strong {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
 /* ── BIG VISUAL ────────────────────────────────────────────────────── */
 .cs-visual {
   margin: 6rem 3rem;
