@@ -621,6 +621,7 @@ img { display: block; max-width: 100%; height: auto; }
 .contact-links {
   margin-top: 4rem;
   display: flex;
+  align-items: baseline;
   justify-content: center;
   gap: 2.5rem;
   font-size: 0.85rem;
