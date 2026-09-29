@@ -41,19 +41,35 @@
 <nav class="nav" aria-label="Primary">
   <a href="#" class="nav-name">Ellis V.</a>
   <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#projects" data-hover><span class="link-swap"><span class="link-swap-default">Work</span><span class="link-swap-hover" aria-hidden="true">Work</span></span></a></li>
-      <li><a href="#about" data-hover><span class="link-swap"><span class="link-swap-default">About</span><span class="link-swap-hover" aria-hidden="true">About</span></span></a></li>
-      <li><a href="#contact" data-hover><span class="link-swap"><span class="link-swap-default">Contact</span><span class="link-swap-hover" aria-hidden="true">Contact</span></span></a></li>
-      <li><a href="resume_2026.pdf" class="nav-resume-btn" data-hover target="_blank" rel="noopener">Resume ↗</a></li>
-    </ul>
-    <a href="resume_2026.pdf" class="nav-resume-mobile" data-hover target="_blank" rel="noopener">Resume ↗</a>
+    <a href="resume_2026.pdf" class="nav-resume-btn" data-hover target="_blank" rel="noopener">Resume ↗</a>
     <button type="button" class="theme-toggle" data-hover aria-label="Toggle light and dark theme" aria-pressed="false">
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
+    <button type="button" class="menu-toggle" data-hover aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-panel">
+      <span class="menu-toggle-label">Menu</span>
+      <span class="menu-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+    </button>
   </div>
 </nav>
+
+<!-- SIDE MENU PANEL -->
+<div class="menu-overlay" data-menu-overlay aria-hidden="true"></div>
+<aside class="menu-panel" id="menu-panel" aria-hidden="true" aria-label="Site menu">
+  <button type="button" class="menu-close" data-hover aria-label="Close menu">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 2l12 12M14 2 2 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <nav class="menu-panel-links" aria-label="Primary, expanded">
+    <a href="#projects" data-hover data-menu-link>Work</a>
+    <a href="#about" data-hover data-menu-link>About</a>
+    <a href="#contact" data-hover data-menu-link>Contact</a>
+    <a href="resume_2026.pdf" data-hover data-menu-link target="_blank" rel="noopener">Resume ↗</a>
+  </nav>
+  <div class="menu-panel-footer">
+    <a href="mailto:elliss.vitoria@gmail.com" data-hover>elliss.vitoria@gmail.com</a>
+    <a href="https://www.linkedin.com/in/ellissvictoria/" target="_blank" rel="noopener noreferrer" data-hover>LinkedIn ↗</a>
+  </div>
+</aside>
 
 <div class="page">
 
@@ -539,6 +555,45 @@
       const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       apply(next);
       try { sessionStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+
+  /* ─── SIDE MENU PANEL ───────────────────────────────────── */
+  (function initMenuPanel() {
+    const toggle = document.querySelector('.menu-toggle');
+    const panel = document.querySelector('.menu-panel');
+    const overlay = document.querySelector('.menu-overlay');
+    const closeBtn = document.querySelector('.menu-close');
+    if (!toggle || !panel || !overlay) return;
+
+    function openMenu() {
+      panel.classList.add('open');
+      overlay.classList.add('active');
+      document.body.classList.add('menu-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      panel.setAttribute('aria-hidden', 'false');
+      overlay.setAttribute('aria-hidden', 'false');
+      if (closeBtn) closeBtn.focus();
+    }
+    function closeMenu() {
+      panel.classList.remove('open');
+      overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('aria-hidden', 'true');
+      toggle.focus();
+    }
+    toggle.addEventListener('click', () => {
+      if (panel.classList.contains('open')) closeMenu(); else openMenu();
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closeMenu();
+    });
+    panel.querySelectorAll('[data-menu-link]').forEach(link => {
+      link.addEventListener('click', closeMenu);
     });
   })();
 
