@@ -29,7 +29,6 @@
 }
 [data-theme="light"] .nav.scrolled { background: rgba(244,244,239,0.72); }
 [data-theme="light"] .nav::before { background: linear-gradient(to bottom, rgba(244,244,239,0.85), transparent); }
-[data-theme="light"] .cs-meta-cell { background: rgba(255,255,255,0.72); }
 [data-theme="light"] .cs-prose p { color: rgba(20,20,15,0.82); }
 
 /* ── THEME TOGGLE ──────────────────────────────────────────────────── */
@@ -255,29 +254,30 @@ img { display: block; max-width: 100%; height: auto; }
 
 /* ── META BAR ──────────────────────────────────────────────────────── */
 .cs-meta {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  padding: 0 3rem 2rem;
 }
 .cs-meta-cell {
-  background: rgba(10,10,10,0.7);
-  backdrop-filter: blur(6px);
-  padding: 2rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
 }
 .cs-meta-key {
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--cyan);
-  margin-bottom: 0.6rem;
 }
 .cs-meta-val {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 /* ── EXECUTIVE SUMMARY / AT A GLANCE CARD ──────────────────────────── */
@@ -550,7 +550,7 @@ code {
 @media (max-width: 900px) {
   .nav { padding: 1.5rem 1.5rem; }
   .cs-hero { padding: 7rem 1.5rem 3rem; }
-  .cs-meta { grid-template-columns: repeat(2, 1fr); }
+  .cs-meta { padding: 0 1.5rem 1.5rem; gap: 0.6rem; }
   .cs-visual { margin: 4rem 1.5rem; height: 50vh; }
   .cs-section { padding: 4rem 1.5rem; }
   .cs-two-col { grid-template-columns: 1fr; gap: 2rem; }

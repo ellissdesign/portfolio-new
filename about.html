@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>(function(){try{if(sessionStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();</script>
+  <title>About — Ellis Victoria | Senior Product Designer</title>
+  <meta name="description" content="About Ellis Victoria — a Porto-based Senior Product Designer specialising in multi-brand design systems, Figma Variables, accessibility, and AI-assisted design operations.">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:title" content="About — Ellis Victoria | Senior Product Designer">
+  <meta property="og:description" content="A Porto-based product designer who thinks in systems, not screens.">
+  <meta property="og:image" content="profile.jpg">
+  <meta property="og:type" content="profile">
+  <meta name="twitter:card" content="summary">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&f[]=general-sans@400,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── ABOUT PAGE ──────────────────────────────────────────────────── */
+    .about-page { max-width: 1100px; margin: 0 auto; padding: 9rem 3rem 6rem; }
+    .about-eyebrow {
+      font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 1.5rem;
+    }
+    .about-statement {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      max-width: 20ch;
+      margin-bottom: 6rem;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 4rem;
+      align-items: start;
+      margin-bottom: 6rem;
+    }
+    .about-photo {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      aspect-ratio: 4/5;
+    }
+    .about-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+      /* source photo has black letterboxing baked in top/bottom; scale up to crop it out */
+      transform: scale(1.3);
+      filter: grayscale(0.25) brightness(0.9);
+      transition: filter 0.6s, transform 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .about-photo:hover img { filter: grayscale(0) brightness(1); transform: scale(1.36); }
+    .about-lede {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 1.75rem;
+    }
+    .about-body p {
+      font-size: 0.98rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+      max-width: 56ch;
+    }
+    .about-body em { color: var(--white); font-style: normal; }
+    .about-quote {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 6rem;
+    }
+    .about-quote-mark {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      line-height: 0.7;
+      color: var(--cyan);
+    }
+    .about-quote p {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+      font-weight: 500;
+      line-height: 1.5;
+      max-width: 42ch;
+    }
+    @media (max-width: 900px) {
+      .about-page { padding: 7rem 1.5rem 4rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-photo { max-width: 320px; }
+      .about-quote { grid-template-columns: 1fr; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Primary">
+  <a href="index.html" class="nav-name">Ellis V.</a>
+  <div class="nav-right">
+    <a href="resume_2026.pdf" class="nav-resume-btn" data-hover target="_blank" rel="noopener">Resume ↗</a>
+    <button type="button" class="theme-toggle" data-hover aria-label="Toggle light and dark theme" aria-pressed="false">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <button type="button" class="menu-toggle" data-hover aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-panel">
+      <span class="menu-toggle-label link-swap"><span class="link-swap-default">Menu</span><span class="link-swap-hover" aria-hidden="true">Menu</span></span>
+      <span class="menu-toggle-icon" aria-hidden="true"><span></span><span></span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- SIDE MENU PANEL -->
+<div class="menu-overlay" data-menu-overlay aria-hidden="true"></div>
+<aside class="menu-panel" id="menu-panel" aria-hidden="true" aria-label="Site menu">
+  <button type="button" class="menu-close" data-hover aria-label="Close menu">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 2l12 12M14 2 2 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+  <nav class="menu-panel-links" aria-label="Primary, expanded">
+    <a href="index.html#projects" data-hover data-menu-link>Work</a>
+    <a href="about.html" data-hover data-menu-link aria-current="page">About</a>
+    <a href="index.html#contact" data-hover data-menu-link>Contact</a>
+    <a href="resume_2026.pdf" data-hover data-menu-link target="_blank" rel="noopener">Resume ↗</a>
+  </nav>
+  <div class="menu-panel-footer">
+    <a href="mailto:elliss.vitoria@gmail.com" data-hover>elliss.vitoria@gmail.com</a>
+    <a href="https://www.linkedin.com/in/ellissvictoria/" target="_blank" rel="noopener noreferrer" data-hover>LinkedIn ↗</a>
+  </div>
+</aside>
+
+<div class="page" id="main">
+  <div class="about-page">
+
+    <span class="about-eyebrow">About</span>
+    <h1 class="about-statement">A Porto-based product designer who thinks in systems, not screens.</h1>
+
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="profile.jpg" alt="Portrait of Ellis Victoria" loading="lazy">
+      </div>
+      <div class="about-body">
+        <p class="about-lede">I lead multi-brand design system work across six BMW Group brands — turning fragmented component libraries into one shared, accessible foundation.</p>
+        <p>I moved into product design from a <em>Visual Arts &amp; Multimedia</em> background, which is probably why I still think about interfaces in terms of composition, rhythm, and contrast before I think about pixels. That instinct is useful in design systems work: most of the job is deciding what stays consistent and what's allowed to flex.</p>
+        <p>At <em>Critical TechWorks</em> I contribute to the architecture of a three-layer token system — Primitive, Semantic, Component — that lets BMW, MINI, MOTORRAD, Rolls-Royce, ALPINA and Alphabet share one component library without duplicating it six times. A lot of my day-to-day is naming things well, embedding WCAG 2.2 checks into review workflows, and using AI-assisted tooling to keep Figma and Storybook honest with each other.</p>
+        <p>Before that, at <em>Hi-Interactive</em>, I redesigned homebanking flows for EuroBic and built a 24px iconography grid for Galp — smaller teams, but the same underlying question: how do you make something feel inevitable, not just correct.</p>
+      </div>
+    </div>
+
+    <div class="about-quote">
+      <span class="about-quote-mark" aria-hidden="true">"</span>
+      <p>Good design should remove the need for interpretation — it should guide, clarify, and support the decision someone's already trying to make.</p>
+    </div>
+
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <h2 class="contact-title">Liking what<br><span class="outline">you're reading?</span></h2>
+    <div class="magnetic-wrap" data-magnetic>
+      <a href="mailto:elliss.vitoria@gmail.com" class="magnetic-btn" data-hover><span class="link-swap"><span class="link-swap-default">Let's talk</span><span class="link-swap-hover" aria-hidden="true">Say hi ✦</span></span></a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:elliss.vitoria@gmail.com" data-hover>elliss.vitoria@gmail.com</a>
+      <a href="https://www.linkedin.com/in/ellissvictoria/" target="_blank" rel="noopener noreferrer" data-hover>LinkedIn ↗</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Ellis Victoria</span>
+    <span>Porto, Portugal</span>
+  </footer>
+</div>
+
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ─── FLOW-FIELD CANVAS ───────────────────────────────────────── */
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, time = 0;
+  const mouse = { x: -9999, y: -9999, ex: -9999, ey: -9999 };
+  const SPACING = 40, RADIUS = 220, PULL = 0.34;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function paint() {
+    ctx.clearRect(0, 0, w, h);
+    mouse.ex += (mouse.x - mouse.ex) * 0.12;
+    mouse.ey += (mouse.y - mouse.ey) * 0.12;
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    const bg0 = light ? 40 : 120, bg1 = light ? 40 : 120, bg2 = light ? 38 : 115;
+    const t0 = light ? 10 : 0, t1 = light ? 143 : 255, t2 = light ? 99 : 179;
+    const baseAlpha = light ? 0.08 : 0.12, glowAlpha = light ? 0.5 : 0.7;
+    const cols = Math.ceil(w / SPACING) + 1, rows = Math.ceil(h / SPACING) + 1;
+
+    for (let iy = 0; iy < rows; iy++) {
+      for (let ix = 0; ix < cols; ix++) {
+        const gx = ix * SPACING, gy = iy * SPACING;
+        const wave = Math.sin(gx * 0.012 + time) + Math.cos(gy * 0.012 + time * 0.8);
+        const waveN = (wave + 2) / 4;
+        let px = gx, py = gy, glow = 0;
+        const dx = mouse.ex - gx, dy = mouse.ey - gy;
+        const dist = Math.hypot(dx, dy);
+        if (dist < RADIUS) {
+          const f = 1 - dist / RADIUS, ease = f * f;
+          px += dx * PULL * ease; py += dy * PULL * ease;
+          glow = ease;
+        }
+        const intensity = Math.min(1, glow * 1.1 + waveN * 0.25);
+        const size = 1 + glow * 2.4 + waveN * 0.6;
+        const r = Math.round(bg0 + (t0 - bg0) * intensity);
+        const g = Math.round(bg1 + (t1 - bg1) * intensity);
+        const b = Math.round(bg2 + (t2 - bg2) * intensity);
+        const alpha = baseAlpha + intensity * glowAlpha;
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.beginPath();
+        ctx.arc(px, py, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
+
+  function tick() { time += 0.012; paint(); requestAnimationFrame(tick); }
+
+  if (!prefersReduced) {
+    resize(); tick();
+    window.addEventListener('resize', resize);
+    if (isFinePointer) {
+      window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      window.addEventListener('mouseout', () => { mouse.x = -9999; mouse.y = -9999; });
+    }
+  } else {
+    resize(); paint();
+    window.addEventListener('resize', () => { resize(); paint(); });
+  }
+
+  /* ─── SMOOTH SCROLL ───────────────────────────────────────────── */
+  const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+  function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+  const nav = document.querySelector('.nav');
+  lenis.on('scroll', ({ scroll }) => { if (nav) nav.classList.toggle('scrolled', scroll > 60); });
+
+  /* ─── CUSTOM CURSOR ───────────────────────────────────────────── */
+  const cursor = document.querySelector('.cursor');
+  const cursorDot = document.querySelector('.cursor-dot');
+  if (cursor && isFinePointer) {
+    let cx = 0, cy = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      cursorDot.style.transform = `translate(${tx - 2}px, ${ty - 2}px)`;
+    });
+    (function move() {
+      cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
+      cursor.style.transform = `translate(${cx - 7}px, ${cy - 7}px)`;
+      requestAnimationFrame(move);
+    })();
+    document.querySelectorAll('[data-hover], a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+  } else if (cursor) {
+    cursor.style.display = 'none';
+    if (cursorDot) cursorDot.style.display = 'none';
+  }
+
+  /* ─── MAGNETIC BUTTON ───────────────────────────────────────────── */
+  const magWrap = document.querySelector('[data-magnetic]');
+  if (magWrap && !prefersReduced && isFinePointer) {
+    const btn = magWrap.querySelector('.magnetic-btn');
+    magWrap.addEventListener('mousemove', (e) => {
+      const r = magWrap.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      btn.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px)`;
+    });
+    magWrap.addEventListener('mouseleave', () => {
+      btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      btn.style.transform = 'translate(0,0)';
+      setTimeout(() => { btn.style.transition = ''; }, 500);
+    });
+  }
+
+  /* ─── THEME TOGGLE ────────────────────────────────────────────── */
+  const root = document.documentElement;
+  const themeBtn = document.querySelector('.theme-toggle');
+  function applyTheme(theme) {
+    if (theme === 'light') root.setAttribute('data-theme', 'light');
+    else root.removeAttribute('data-theme');
+    if (themeBtn) themeBtn.setAttribute('aria-pressed', String(theme === 'light'));
+  }
+  let savedTheme = 'dark';
+  try { savedTheme = sessionStorage.getItem('theme') || 'dark'; } catch (e) {}
+  applyTheme(savedTheme);
+  if (themeBtn) themeBtn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    applyTheme(next);
+    try { sessionStorage.setItem('theme', next); } catch (e) {}
+  });
+
+  /* ─── SIDE MENU PANEL ───────────────────────────────────────────── */
+  (function initMenuPanel() {
+    const toggle = document.querySelector('.menu-toggle');
+    const panel = document.querySelector('.menu-panel');
+    const overlay = document.querySelector('.menu-overlay');
+    const closeBtn = document.querySelector('.menu-close');
+    if (!toggle || !panel || !overlay) return;
+    const labelSpans = toggle.querySelectorAll('.menu-toggle-label span');
+    function setLabel(text) { labelSpans.forEach(s => { s.textContent = text; }); }
+
+    function openMenu() {
+      panel.classList.add('open');
+      overlay.classList.add('active');
+      document.body.classList.add('menu-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      panel.setAttribute('aria-hidden', 'false');
+      overlay.setAttribute('aria-hidden', 'false');
+      setLabel('Close');
+      if (closeBtn) closeBtn.focus();
+    }
+    function closeMenu() {
+      panel.classList.remove('open');
+      overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+      overlay.setAttribute('aria-hidden', 'true');
+      setLabel('Menu');
+      toggle.focus();
+    }
+    toggle.addEventListener('click', () => {
+      if (panel.classList.contains('open')) closeMenu(); else openMenu();
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closeMenu();
+    });
+    panel.querySelectorAll('[data-menu-link]').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  })();
+})();
+</script>
+</body>
+</html>

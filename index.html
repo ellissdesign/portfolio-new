@@ -47,7 +47,7 @@
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
     </button>
     <button type="button" class="menu-toggle" data-hover aria-haspopup="dialog" aria-expanded="false" aria-controls="menu-panel">
-      <span class="menu-toggle-label">Menu</span>
+      <span class="menu-toggle-label link-swap"><span class="link-swap-default">Menu</span><span class="link-swap-hover" aria-hidden="true">Menu</span></span>
       <span class="menu-toggle-icon" aria-hidden="true"><span></span><span></span></span>
     </button>
   </div>
@@ -61,7 +61,7 @@
   </button>
   <nav class="menu-panel-links" aria-label="Primary, expanded">
     <a href="#projects" data-hover data-menu-link>Work</a>
-    <a href="#about" data-hover data-menu-link>About</a>
+    <a href="about.html" data-hover data-menu-link>About</a>
     <a href="#contact" data-hover data-menu-link>Contact</a>
     <a href="resume_2026.pdf" data-hover data-menu-link target="_blank" rel="noopener">Resume ↗</a>
   </nav>
@@ -214,6 +214,10 @@
 <!-- ABOUT -->
 <section class="about" id="about">
   <p class="about-text">I design <em>systems that scale</em>: multi-brand foundations, accessible components, and AI workflows that help teams move from intent to implementation with less friction. My current work at Critical TechWorks supports the <em>BMW Group</em> ecosystem across six brands.</p>
+  <a href="about.html" class="about-more-link fade-up" data-hover>
+    <span class="link-swap"><span class="link-swap-default">More about me</span><span class="link-swap-hover" aria-hidden="true">More about me</span></span>
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 </section>
 
 <!-- EXPERIENCE -->
@@ -565,6 +569,8 @@
     const overlay = document.querySelector('.menu-overlay');
     const closeBtn = document.querySelector('.menu-close');
     if (!toggle || !panel || !overlay) return;
+    const labelSpans = toggle.querySelectorAll('.menu-toggle-label span');
+    function setLabel(text) { labelSpans.forEach(s => { s.textContent = text; }); }
 
     function openMenu() {
       panel.classList.add('open');
@@ -573,6 +579,7 @@
       toggle.setAttribute('aria-expanded', 'true');
       panel.setAttribute('aria-hidden', 'false');
       overlay.setAttribute('aria-hidden', 'false');
+      setLabel('Close');
       if (closeBtn) closeBtn.focus();
     }
     function closeMenu() {
@@ -582,6 +589,7 @@
       toggle.setAttribute('aria-expanded', 'false');
       panel.setAttribute('aria-hidden', 'true');
       overlay.setAttribute('aria-hidden', 'true');
+      setLabel('Menu');
       toggle.focus();
     }
     toggle.addEventListener('click', () => {

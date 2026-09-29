@@ -283,11 +283,14 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--cyan);
 }
 a:hover .link-swap-default,
-a:hover .link-swap-hover { transform: translateY(-100%); }
+a:hover .link-swap-hover,
+button:hover .link-swap-default,
+button:hover .link-swap-hover { transform: translateY(-100%); }
 .project-link:hover .link-swap-hover { color: var(--black); }
 
 /* ── MENU TOGGLE + SIDE PANEL ──────────────────────────────────── */
 .menu-toggle {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
@@ -299,13 +302,17 @@ a:hover .link-swap-hover { transform: translateY(-100%); }
   letter-spacing: 0.02em;
   cursor: none;
   padding: 0;
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
 }
 @media (pointer: coarse) { .menu-toggle { cursor: pointer; } }
+.menu-toggle:active { transform: scale(0.92); }
 .menu-toggle-icon {
   position: relative;
   width: 22px;
   height: 14px;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
+body:not(.menu-open) .menu-toggle:hover .menu-toggle-icon { transform: rotate(90deg); }
 .menu-toggle-icon span {
   position: absolute;
   left: 0;
@@ -662,6 +669,17 @@ body.menu-open { overflow: hidden; }
 }
 .about-text .word.active { opacity: 1; }
 .about-text em { font-style: normal; color: var(--cyan); }
+.about-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--cyan);
+  transition: gap 0.3s;
+}
+.about-more-link:hover { gap: 1rem; }
 
 /* ── EXPERIENCE ────────────────────────────────────────────────────── */
 .experience {
