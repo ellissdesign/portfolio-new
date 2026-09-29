@@ -28,7 +28,7 @@
 <div class="grain" aria-hidden="true"></div>
 
 <!-- Custom cursor -->
-<div class="cursor" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span class="cursor-label">View</span></div>
 <div class="cursor-dot" aria-hidden="true"></div>
 
 <!-- Loader -->
@@ -42,9 +42,9 @@
   <a href="#" class="nav-name">Ellis V.</a>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="#projects" data-hover>Work</a></li>
-      <li><a href="#about" data-hover>About</a></li>
-      <li><a href="#contact" data-hover>Contact</a></li>
+      <li><a href="#projects" data-hover><span class="link-swap"><span class="link-swap-default">Work</span><span class="link-swap-hover" aria-hidden="true">Work</span></span></a></li>
+      <li><a href="#about" data-hover><span class="link-swap"><span class="link-swap-default">About</span><span class="link-swap-hover" aria-hidden="true">About</span></span></a></li>
+      <li><a href="#contact" data-hover><span class="link-swap"><span class="link-swap-default">Contact</span><span class="link-swap-hover" aria-hidden="true">Contact</span></span></a></li>
       <li><a href="resume_2026.pdf" class="nav-resume-btn" data-hover target="_blank" rel="noopener">Resume ↗</a></li>
     </ul>
     <a href="resume_2026.pdf" class="nav-resume-mobile" data-hover target="_blank" rel="noopener">Resume ↗</a>
@@ -120,7 +120,7 @@
       <h3 class="project-name">Multi-Brand Design System</h3>
       <p class="project-desc">One component library. Six brand identities. Three-layer token architecture — zero duplication.</p>
       <a href="work-design-system.html" class="project-link" data-hover>
-        <span>Case study</span>
+        <span class="link-swap"><span class="link-swap-default">Case study</span><span class="link-swap-hover" aria-hidden="true">Case study</span></span>
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -137,7 +137,7 @@
       <h3 class="project-name">Build with AI Agents</h3>
       <p class="project-desc">I didn't just use AI — I engineered the builder. A custom Web Designer agent, encoded with my standards, driven by planned, single-purpose prompts.</p>
       <a href="work-ai-agent.html" class="project-link" data-hover>
-        <span>Case study</span>
+        <span class="link-swap"><span class="link-swap-default">Case study</span><span class="link-swap-hover" aria-hidden="true">Case study</span></span>
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -154,7 +154,7 @@
       <h3 class="project-name">Iconography &amp; Styleguide</h3>
       <p class="project-desc">Four icon styles from a single grid. A complete visual language for an energy company's digital ecosystem.</p>
       <a href="work-galp.html" class="project-link" data-hover>
-        <span>Case study</span>
+        <span class="link-swap"><span class="link-swap-default">Case study</span><span class="link-swap-hover" aria-hidden="true">Case study</span></span>
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -171,7 +171,7 @@
       <h3 class="project-name">Homebanking Platform</h3>
       <p class="project-desc">Redesigning digital banking. Responsive, clear, and calm — making financial complexity feel inevitable.</p>
       <a href="work-eurobic.html" class="project-link" data-hover>
-        <span>Case study</span>
+        <span class="link-swap"><span class="link-swap-default">Case study</span><span class="link-swap-hover" aria-hidden="true">Case study</span></span>
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -188,7 +188,7 @@
       <h3 class="project-name">Marte — Task Management</h3>
       <p class="project-desc">Enterprise portal for complex task hierarchies. Data visualisation and role-based flows, made readable.</p>
       <a href="work-marte.html" class="project-link" data-hover>
-        <span>Case study</span>
+        <span class="link-swap"><span class="link-swap-default">Case study</span><span class="link-swap-hover" aria-hidden="true">Case study</span></span>
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
@@ -243,7 +243,7 @@
 <section class="contact" id="contact">
   <h2 class="contact-title fade-up">Open to the<br><span class="outline">right challenge</span></h2>
   <div class="magnetic-wrap" data-magnetic>
-    <a href="mailto:elliss.vitoria@gmail.com" class="magnetic-btn" data-hover>Let's talk</a>
+    <a href="mailto:elliss.vitoria@gmail.com" class="magnetic-btn" data-hover><span class="link-swap"><span class="link-swap-default">Let's talk</span><span class="link-swap-hover" aria-hidden="true">Say hi ✦</span></span></a>
   </div>
   <div class="contact-links fade-up">
     <a href="mailto:elliss.vitoria@gmail.com" data-hover>elliss.vitoria@gmail.com</a>
@@ -409,12 +409,16 @@
     gsap.to('.hero-scroll', { opacity: 1, duration: 0.6, delay: 1.1 });
   }
 
-  /* ─── MARQUEE (scroll velocity aware) ───────────────────────────── */
+  /* ─── MARQUEE (scroll velocity aware, speeds up on hover) ───────── */
   const marqueeTrack = document.querySelector('.marquee-track');
   if (marqueeTrack && !prefersReduced) {
     let mx = 0;
+    let marqueeSpeed = 0.6;
+    const marqueeEl = marqueeTrack.closest('.marquee') || marqueeTrack;
+    marqueeEl.addEventListener('mouseenter', () => { marqueeSpeed = 2.2; });
+    marqueeEl.addEventListener('mouseleave', () => { marqueeSpeed = 0.6; });
     gsap.ticker.add(() => {
-      mx -= 0.6;
+      mx -= marqueeSpeed;
       const half = marqueeTrack.scrollWidth / 2;
       if (-mx >= half) mx = 0;
       marqueeTrack.style.transform = `translateX(${mx}px)`;
@@ -438,6 +442,23 @@
       gsap.fromTo(inner, { objectPosition: '50% 35%' }, {
         objectPosition: '50% 65%', ease: 'none',
         scrollTrigger: { trigger: vis, start: 'top bottom', end: 'bottom top', scrub: 1 }
+      });
+    });
+  }
+
+  /* ─── PROJECT CARD TILT (cursor-reactive) ───────────────────────── */
+  if (!prefersReduced && isFinePointer) {
+    document.querySelectorAll('.project-visual').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transition = '';
+        card.style.transform = `perspective(900px) rotateX(${py * -8}deg) rotateY(${px * 8}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+        card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
       });
     });
   }
@@ -475,6 +496,10 @@
     document.querySelectorAll('[data-hover], a, button').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+    document.querySelectorAll('.project-visual-link').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('viewing'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('viewing'));
     });
   } else if (cursor) {
     cursor.style.display = 'none';

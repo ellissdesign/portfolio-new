@@ -131,6 +131,10 @@ img { display: block; max-width: 100%; height: auto; }
   pointer-events: none;
   z-index: 9998;
   will-change: transform;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: width 0.25s, height 0.25s, background 0.25s, border-color 0.25s;
 }
 .cursor.hovering {
@@ -138,6 +142,27 @@ img { display: block; max-width: 100%; height: auto; }
   height: 56px;
   background: rgba(0,255,179,0.1);
   border-color: var(--cyan);
+}
+.cursor-label {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--black);
+  white-space: nowrap;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.cursor.viewing {
+  width: 84px;
+  height: 84px;
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
+.cursor.viewing .cursor-label {
+  opacity: 1;
+  transform: scale(1);
 }
 .cursor-dot {
   position: fixed;
@@ -232,7 +257,10 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
 }
+.nav-name:hover { transform: rotate(-4deg) scale(1.05); }
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -244,6 +272,30 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--white);
   position: relative;
 }
+
+/* ── HOVER-SWAP LINK TEXT ──────────────────────────────────────────── */
+.link-swap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 1.3em;
+  line-height: 1.3em;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.link-swap span {
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.65,0,0.35,1);
+}
+.link-swap-hover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  color: var(--cyan);
+}
+a:hover .link-swap-default,
+a:hover .link-swap-hover { transform: translateY(-100%); }
+.project-link:hover .link-swap-hover { color: var(--black); }
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -446,6 +498,7 @@ img { display: block; max-width: 100%; height: auto; }
   border-radius: var(--radius);
   aspect-ratio: 4/3;
   border: 1px solid var(--border);
+  will-change: transform;
 }
 .project-visual img,
 .project-visual-placeholder {
